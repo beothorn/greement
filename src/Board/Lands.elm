@@ -1,4 +1,5 @@
 module Board.Lands exposing (..)
+
 import Css exposing (..)
 --import Css.Elements exposing (..)
 import Css.Namespace exposing (namespace)
@@ -14,10 +15,12 @@ type alias LandTile ={
 
 type CssClasses =  EmptyTile | CropsTile | GoldMineTile | LakeTile | MountainTile
 
+homepageNamespace : Html.CssHelpers.Namespace String class id msg
 homepageNamespace = withNamespace "board"
 
 { id, class, classList } = homepageNamespace
 
+css : Stylesheet
 css =
     (stylesheet << namespace homepageNamespace.name)
     [
