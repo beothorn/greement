@@ -2,41 +2,60 @@ module Board.Game exposing (..)
 
 import Board.Lands exposing (..)
 import Random
+import Matrix exposing (..)
 
 --type Land = Empty | Crops | GoldMine | Lake | Mountain 
 type alias GameConfig = {
     size : Int,
-    landCount : Int,
     goldMineCount : Int,
     lakeCount : Int,
     mountainCount : Int
 }
 
 
-randomTuple : Int -> Int -> Random.Seed -> ((Int, Int), Random.Seed)
-randomTuple min max seed = 
+randomTuple : Int -> Random.Seed -> ((Int, Int), Random.Seed)
+randomTuple max seed = 
     let 
-        rgen = Random.int min max
+        rgen = Random.int 0 max
         (x, firstSeed) = Random.step rgen seed
         (y, secondSeed) = Random.step rgen firstSeed
     in
     ((x, y), secondSeed)
 
-makeRandomTuplesExcluding : Int -> Int -> Int -> Random.Seed -> List (Int, Int) -> List (Int, Int)
-makeRandomTuplesExcluding min max qntd seed excluding = 
+makeRandomTuplesExcluding : Int -> Int -> Random.Seed -> List (Int, Int) -> List (Int, Int)
+makeRandomTuplesExcluding max qntd seed excluding = 
     let
-        (rtuple, rseed) = randomTuple min max seed
+        (rtuple, rseed) = randomTuple max seed
     in
     case qntd of 
         0 -> []
         _ -> if List.member rtuple excluding 
                 then
-                    makeRandomTuplesExcluding min max qntd rseed excluding 
+                    makeRandomTuplesExcluding  max qntd rseed excluding 
                 else 
-                    rtuple :: makeRandomTuplesExcluding min max (qntd - 1) rseed (rtuple :: excluding)
+                    rtuple :: makeRandomTuplesExcluding max (qntd - 1) rseed (rtuple :: excluding)
 
-makeRandomTuples : Int -> Int -> Int -> Random.Seed -> List (Int, Int)
-makeRandomTuples min max qntd seed = makeRandomTuplesExcluding min max qntd seed [] 
+makeRandomTuples : Int -> Int -> Random.Seed -> List (Int, Int)
+makeRandomTuples max qntd seed = makeRandomTuplesExcluding max qntd seed [] 
+
+getLand: List (Int, Int) -> List (Int, Int) ->  List (Int, Int) -> Location ->LandTile
+getLand goldMinePositions lakePositions mountainsPositions location = 
+    if List.member location goldMinePositions then
+        {landType = GoldMine, owner = "Gold"}
+    else
+        if List.member location lakePositions then
+            {landType = Lake, owner = "Lake"}
+        else
+            if List.member location mountainsPositions then
+                {landType = Mountain, owner = "Mountain"}
+            else
+                {landType = Empty, owner = "NOONE"}
 
 makeBoard : GameConfig -> List String -> List (List LandTile)
-makeBoard gameConfig names = List.repeat gameConfig.size (List.repeat gameConfig.size {landType = Empty, owner = "NOONE"})
+makeBoard gameConfig names =
+    let
+        goldMinePositions = makeRandomTuples gameConfig.size gameConfig.goldMineCount (Random.initialSeed 1000)
+        lakePositions = makeRandomTuplesExcluding gameConfig.size gameConfig.lakeCount (Random.initialSeed 1001) goldMinePositions
+        mountainsPositions = makeRandomTuplesExcluding gameConfig.size gameConfig.mountainCount (Random.initialSeed 1002) lakePositions
+    in
+        toList <| matrix gameConfig.size gameConfig.size <| getLand goldMinePositions lakePositions mountainsPositions

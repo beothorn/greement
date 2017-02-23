@@ -8,7 +8,6 @@ import Board.Game exposing (..)
 gameConfig : GameConfig
 gameConfig = {
     size = 10,
-    landCount = 60,
     goldMineCount = 30,
     lakeCount = 5,
     mountainCount =5

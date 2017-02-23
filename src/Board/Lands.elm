@@ -13,8 +13,6 @@ type alias LandTile ={
     , owner : String
 }  
 
-type CssClasses =  EmptyTile | CropsTile | GoldMineTile | LakeTile | MountainTile
-
 homepageNamespace : Html.CssHelpers.Namespace String class id msg
 homepageNamespace = withNamespace "board"
 
@@ -24,15 +22,15 @@ css : Stylesheet
 css =
     (stylesheet << namespace homepageNamespace.name)
     [
-        Css.class EmptyTile [ backgroundColor (rgb 200 128 64) ]
-        ,Css.class CropsTile [ backgroundColor (rgb 0 255 0) ]
-        ,Css.class GoldMineTile [ backgroundColor (rgb 255 255 0) ]
-        ,Css.class LakeTile [ backgroundColor (rgb 0 0 255) ]
-        ,Css.class MountainTile [ backgroundColor (rgb 255 0 0) ]
+        Css.class Empty [ backgroundColor (rgb 200 128 64) ]
+        ,Css.class Crops [ backgroundColor (rgb 0 255 0) ]
+        ,Css.class GoldMine [ backgroundColor (rgb 255 255 0) ]
+        ,Css.class Lake [ backgroundColor (rgb 0 0 255) ]
+        ,Css.class Mountain [ backgroundColor (rgb 255 0 0) ]
     ]
 
 renderLandTilesLine : List LandTile -> Html tr
-renderLandTilesLine tileRow = Html.tr [] (List.map (\t -> Html.td [class [EmptyTile]] [Html.text t.owner]) tileRow)
+renderLandTilesLine tileRow = Html.tr [] (List.map (\t -> Html.td [class [t.landType]] [Html.text t.owner]) tileRow)
 
 renderLandTiles : List (List LandTile) -> List (Html tr)
 renderLandTiles tilesRows = 
