@@ -4,14 +4,21 @@ import Board.Lands exposing (..)
 import Random
 import Matrix exposing (..)
 
---type Land = Empty | Crops | GoldMine | Lake | Mountain 
+makeBoard : GameConfig -> List (List LandTile)
+makeBoard gameConfig =
+    let
+        goldMinePositions = makeRandomTuples gameConfig.size gameConfig.goldMineCount (Random.initialSeed 1000)
+        lakePositions = makeRandomTuplesExcluding gameConfig.size gameConfig.lakeCount (Random.initialSeed 1001) goldMinePositions
+        mountainsPositions = makeRandomTuplesExcluding gameConfig.size gameConfig.mountainCount (Random.initialSeed 1002) lakePositions
+    in
+        toList <| matrix gameConfig.size gameConfig.size <| getLand goldMinePositions lakePositions mountainsPositions
+
 type alias GameConfig = {
     size : Int,
     goldMineCount : Int,
     lakeCount : Int,
     mountainCount : Int
 }
-
 
 randomTuple : Int -> Random.Seed -> ((Int, Int), Random.Seed)
 randomTuple max seed = 
@@ -42,20 +49,9 @@ getLand: List (Int, Int) -> List (Int, Int) ->  List (Int, Int) -> Location ->La
 getLand goldMinePositions lakePositions mountainsPositions location = 
     if List.member location goldMinePositions then
         {landType = GoldMine, owner = "Gold"}
+    else if List.member location lakePositions then
+        {landType = Lake, owner = "Lake"}
+    else if List.member location mountainsPositions then
+        {landType = Mountain, owner = "Mountain"}
     else
-        if List.member location lakePositions then
-            {landType = Lake, owner = "Lake"}
-        else
-            if List.member location mountainsPositions then
-                {landType = Mountain, owner = "Mountain"}
-            else
-                {landType = Empty, owner = "NOONE"}
-
-makeBoard : GameConfig -> List String -> List (List LandTile)
-makeBoard gameConfig names =
-    let
-        goldMinePositions = makeRandomTuples gameConfig.size gameConfig.goldMineCount (Random.initialSeed 1000)
-        lakePositions = makeRandomTuplesExcluding gameConfig.size gameConfig.lakeCount (Random.initialSeed 1001) goldMinePositions
-        mountainsPositions = makeRandomTuplesExcluding gameConfig.size gameConfig.mountainCount (Random.initialSeed 1002) lakePositions
-    in
-        toList <| matrix gameConfig.size gameConfig.size <| getLand goldMinePositions lakePositions mountainsPositions
+        {landType = Empty, owner = "NOONE"}

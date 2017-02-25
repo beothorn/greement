@@ -6,6 +6,13 @@ import Css.Namespace exposing (namespace)
 import Html.CssHelpers exposing (withNamespace)
 import Html exposing (..)
 
+landTiles : List (List LandTile) -> List String -> Html b
+landTiles tilesRows players =
+    case tilesRows of
+        [] -> Html.text "Empty board"
+        [[]] -> Html.text "Empty board"
+        all -> Html.div [] ((renderLandTiles all) ++ (List.map Html.text players))
+
 type Land = Empty | Crops | GoldMine | Lake | Mountain 
 
 type alias LandTile ={ 
@@ -38,10 +45,3 @@ renderLandTiles tilesRows =
         [] -> []
         [x] -> [renderLandTilesLine x]
         x::xs -> renderLandTilesLine x :: renderLandTiles xs
-
-landTiles : List (List LandTile) -> Html b
-landTiles tilesRows =
-    case tilesRows of
-        [] -> Html.text "Empty board"
-        [[]] -> Html.text "Empty board"
-        all -> Html.div [] (renderLandTiles all)

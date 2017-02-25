@@ -12,7 +12,8 @@ What you’ll need
 - 5 gray squares. Mountains
 - Something to mark the ownership of a square, ie: beans
 Starting the game
-Put all squares, except the green ones, on the table facing down on a 10x10 grid. Each player must choose a square to be his starting square. The square must not be connected to any other player starting square.
+Put all squares, except the green ones, on the table facing down on a 10x10 grid.   
+Each player must choose a square to be his starting square. The square must not be connected to any other player starting square.
 After all players have chosen their starting squares turn all squares up. The player will have to buy the chosen square, so if a player chose a gold mine or land, he will have to pay the starting price. If the player chooses a colored square he must choose another square touching his square.
 
 The table of values must be visible to all players, and will contain:

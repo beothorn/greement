@@ -4,6 +4,11 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Board.Lands exposing (..)
 import Board.Game exposing (..)
+import CommonValues exposing (..)
+import GameSetup exposing (..)
+
+main : Program Never Model Msg
+main = beginnerProgram { model = initialState, view = view, update = update }
 
 gameConfig : GameConfig
 gameConfig = {
@@ -13,11 +18,8 @@ gameConfig = {
     mountainCount =5
  }
 
-players : List String
-players = ["Alice", "Bob", "Carol"]
-
-main : Program Never String Msg
-main = beginnerProgram { model = "", view = view, update = update }
+initialState : Model
+initialState = Model Setup "" []
 
 cssFileName : String
 cssFileName = "style.css"
@@ -32,21 +34,22 @@ stylesheet =
             , attribute "href"      ("./"++cssFileName)
             ]
         children = []
-    in 
+    in
         node tag attrs children
 
-view: a -> Html b
+view: Model -> Html Msg
 view model =
-  div [] [
-    stylesheet, 
-    makeBoard gameConfig players 
-      |> landTiles
+  case model.state of
+  Setup -> div [] [ stylesheet, 
+    setupGame model.playerInput model.players
+  ]
+  PlayesChoosingTiles -> div [] [ stylesheet,
+    landTiles (makeBoard gameConfig) model.players 
   ]
 
-
-type Msg = Placeholder
-
+update : Msg -> Model -> Model
 update msg model =
   case msg of
-    Placeholder ->
-      "nah"
+    UpdatePlayerName playerName -> {model | playerInput = playerName}
+    AddPlayer -> {model | players = (model.playerInput :: model.players)}
+    FinishAddingPlayers -> {model | state= PlayesChoosingTiles}
