@@ -1,12 +1,17 @@
 module CommonValues exposing (..)
 
-type GameState =
+type GamePhases =
     Setup
     | PlayesChoosingTiles
+    | MakingLoans
+    | PlayerTurn
+    | PayDebts
+    | CollectProfits
+    | EventsDraw
 
 
 type alias Model = {
-    state : GameState,
+    state : GamePhases,
     playerInput : String,
     players : List String
 }

@@ -5,7 +5,7 @@ import Html.Attributes exposing (..)
 import Board.Lands exposing (..)
 import Board.Game exposing (..)
 import CommonValues exposing (..)
-import GameSetup exposing (..)
+import Phase.Setup exposing (..)
 
 main : Program Never Model Msg
 main = beginnerProgram { model = initialState, view = view, update = update }
@@ -46,6 +46,12 @@ view model =
   PlayesChoosingTiles -> div [] [ stylesheet,
     landTiles (makeBoard gameConfig) model.players 
   ]
+  MakingLoans -> Html.text "NOT IMPLEMENTED"
+  PlayerTurn -> Html.text "NOT IMPLEMENTED"
+  PayDebts -> Html.text "NOT IMPLEMENTED"
+  CollectProfits -> Html.text "NOT IMPLEMENTED"
+  EventsDraw -> Html.text "NOT IMPLEMENTED"
+
 
 update : Msg -> Model -> Model
 update msg model =
