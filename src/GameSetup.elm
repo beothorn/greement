@@ -16,4 +16,4 @@ setupGame currentPlayerName players = div [] ([
             [],
     button [ onClick AddPlayer] [ text "Add"],
     button [ onClick FinishAddingPlayers ] [ text "Start"]
- ] ++ List.map Html.text players)
+ ] ++ List.map (\t -> Html.text (t ++ " ") ) players)

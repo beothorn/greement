@@ -51,5 +51,5 @@ update : Msg -> Model -> Model
 update msg model =
   case msg of
     UpdatePlayerName playerName -> {model | playerInput = playerName}
-    AddPlayer -> {model | players = (model.playerInput :: model.players)}
+    AddPlayer -> {model | players = (model.playerInput :: model.players), playerInput = "" }
     FinishAddingPlayers -> {model | state= PlayesChoosingTiles}
