@@ -1,17 +1,17 @@
 module Board.Game exposing (..)
 
-import Board.Lands exposing (..)
 import Random
+import CommonValues exposing (..) 
 import Matrix exposing (..)
 
-makeBoard : GameConfig -> List (List LandTile)
+makeBoard : GameConfig -> Matrix LandTile
 makeBoard gameConfig =
     let
         goldMinePositions = makeRandomTuples gameConfig.size gameConfig.goldMineCount (Random.initialSeed 1000)
         lakePositions = makeRandomTuplesExcluding gameConfig.size gameConfig.lakeCount (Random.initialSeed 1001) goldMinePositions
         mountainsPositions = makeRandomTuplesExcluding gameConfig.size gameConfig.mountainCount (Random.initialSeed 1002) lakePositions
     in
-        toList <| matrix gameConfig.size gameConfig.size <| getLand goldMinePositions lakePositions mountainsPositions
+        matrix gameConfig.size gameConfig.size <| getLand goldMinePositions lakePositions mountainsPositions
 
 type alias GameConfig = {
     size : Int,
@@ -48,10 +48,10 @@ makeRandomTuples max qntd seed = makeRandomTuplesExcluding max qntd seed []
 getLand: List (Int, Int) -> List (Int, Int) ->  List (Int, Int) -> Location ->LandTile
 getLand goldMinePositions lakePositions mountainsPositions location = 
     if List.member location goldMinePositions then
-        {landType = GoldMine, owner = "Gold"}
+        {landType = GoldMine, owner = noOwner, facingUp = False}
     else if List.member location lakePositions then
-        {landType = Lake, owner = "Lake"}
+        {landType = Lake, owner = noOwner, facingUp = False}
     else if List.member location mountainsPositions then
-        {landType = Mountain, owner = "Mountain"}
+        {landType = Mountain, owner = noOwner, facingUp = False}
     else
-        {landType = Empty, owner = "NOONE"}
+        {landType = Empty, owner = noOwner, facingUp = False}

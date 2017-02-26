@@ -1,22 +1,37 @@
 module CommonValues exposing (..)
 
+import Matrix exposing (..)
+import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
+import Phase.Setup.SetupModel exposing (..)
+
+noOwner : String
+noOwner = "NONE"
+
+type Land = Empty | Crops | GoldMine | Lake | Mountain | Hidden
+
+type alias LandTile ={ 
+    landType : Land
+    , owner : String
+    , facingUp : Bool
+}  
+
 type GamePhases =
     Setup
-    | PlayesChoosingTiles
+    | PlayersChoosingTiles
     | MakingLoans
     | PlayerTurn
     | PayDebts
     | CollectProfits
     | EventsDraw
 
-
 type alias Model = {
-    state : GamePhases,
-    playerInput : String,
-    players : List String
+    state : GamePhases
+    ,players : List String
+    ,board : Matrix LandTile
+    ,choosingFirstTilesModel : ChoosingFirstTilesModel
+    ,setupModel : SetupModel
 }
 
 type Msg = 
-    AddPlayer
-    | UpdatePlayerName String
-    | FinishAddingPlayers
+    SetupMsg SetupEvent
+    | ChoosingFirstTilesMsg ChoosingFirstTilesEvent
