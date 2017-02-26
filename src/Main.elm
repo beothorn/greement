@@ -51,7 +51,7 @@ view model =
     Phase.Setup.SetupScreen.render model
   ]
   PlayersChoosingTiles -> div [] [ stylesheet,
-    Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model 
+    Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model
   ]
   MakingLoans -> Html.text "NOT IMPLEMENTED"
   PlayerTurn -> Html.text "NOT IMPLEMENTED"

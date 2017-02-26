@@ -9,15 +9,8 @@ import Html.Events exposing (..)
 import Matrix exposing (..)
 import CommonValues exposing (..)
 
-board : Matrix LandTile -> Msg -> Html Msg
-board tilesRows onclickMsg =
-    let
-      tileList = toList tilesRows
-    in
-        case tileList of
-            [] -> Html.text "Empty board"
-            [[]] -> Html.text "Empty board"
-            all -> Html.table [] (renderLandTiles all onclickMsg)
+board : Matrix LandTile -> (Location -> Msg) -> Html Msg
+board tilesRows onclickMsg = Html.table [] (renderLandTiles tilesRows onclickMsg)
 
 homepageNamespace : Html.CssHelpers.Namespace String class id msg
 homepageNamespace = withNamespace "board"
@@ -41,17 +34,14 @@ css =
         ,Css.Elements.tr [height (px 30)]
     ]
 
-renderLandTile : Msg -> LandTile -> Html Msg
-renderLandTile onclickMsg tile = if tile.facingUp then 
-    Html.td [class [tile.landType]] [] 
-    else Html.td [class [Hidden], onClick onclickMsg] []
+renderLandTileOnLocation : (Location -> Msg) -> Location -> LandTile -> Html Msg
+renderLandTileOnLocation onclickMsg location tile = if tile.facingUp then 
+    Html.td [class [tile.landType], onClick (onclickMsg location)] [Html.text (toString location)] 
+    else Html.td [class [Hidden], onClick (onclickMsg location)] [Html.text (toString location)]
 
-renderLandTilesLine : List LandTile -> Msg -> Html Msg
-renderLandTilesLine tileRow onclickMsg = Html.tr [] (List.map (renderLandTile onclickMsg) tileRow)
+renderLandTilesLine : List (Html Msg) -> Html Msg 
+renderLandTilesLine tileCellRow = Html.tr [] tileCellRow
 
-renderLandTiles : List (List LandTile) -> Msg -> List (Html Msg)
+renderLandTiles : Matrix LandTile -> (Location -> Msg) -> List (Html Msg)
 renderLandTiles tilesRows onclickMsg = 
-    case tilesRows of
-        [] -> []
-        [x] -> [renderLandTilesLine x onclickMsg]
-        x::xs -> renderLandTilesLine x onclickMsg :: renderLandTiles xs onclickMsg
+    List.map renderLandTilesLine (toList (mapWithLocation (renderLandTileOnLocation onclickMsg) tilesRows)) 
