@@ -7,7 +7,6 @@ type alias SetupModel = {
 type SetupEvent = 
     OnPlayerInput String
     | AddPlayer
-    | FinishInputting
 
 initialValue : SetupModel
 initialValue = SetupModel "" 

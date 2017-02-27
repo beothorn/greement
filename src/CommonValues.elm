@@ -7,7 +7,13 @@ import Phase.Setup.SetupModel exposing (..)
 noOwner : String
 noOwner = "NONE"
 
-type Land = Empty | Crops | GoldMine | Lake | Mountain | Hidden
+type Land = 
+    Empty 
+    | Crops 
+    | GoldMine 
+    | Lake 
+    | Mountain 
+    | Hidden
 
 type alias LandTile ={ 
     landType : Land
@@ -28,6 +34,7 @@ type alias Model = {
     state : GamePhases
     ,players : List String
     ,board : Matrix LandTile
+    ,values : List (String, Int, String) --Name value suffix
     ,choosingFirstTilesModel : ChoosingFirstTilesModel
     ,setupModel : SetupModel
 }

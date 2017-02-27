@@ -5,9 +5,12 @@ import Matrix exposing (..)
 type alias ChoosingFirstTilesModel = {
     lastSelectedTile : (Int,Int)
     ,playerChoosingTile : String
+    ,playersLeftChoosingTile : List String
 }
 
-type ChoosingFirstTilesEvent = OnTileClick Location
+type ChoosingFirstTilesEvent = 
+    Start
+    | OnTileClick Location
 
 initialValue : ChoosingFirstTilesModel
-initialValue = ChoosingFirstTilesModel (-1,-1) "NONE" 
+initialValue = ChoosingFirstTilesModel (-1,-1) "NONE" []

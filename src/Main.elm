@@ -19,12 +19,30 @@ gameConfig = {
     lakeCount = 5,
     mountainCount =5
  }
+--|Land|Seed|Crop profit|Gold mine|Gold mine profit|Lake multiplier|Mountain multiplier|Distance tax(per square)|Loan multiplier|Cattle|Cattle profit|
+--|2c  |2c  |3c         |5c       |4c              |1x             |1x                 |4c                      |x2             |5c    |6c           |
+
 
 initialState : Model
 initialState = Model 
     Setup 
     [] 
     (makeBoard gameConfig) 
+    [
+        ("Land",2,"c")
+        , ("Seed",2,"c")
+        , ("Crop profit",3,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+        , ("Seed",2,"c")
+    ]
     Phase.ChoosingFirstTile.ChoosingFirstTilesModel.initialValue
     Phase.Setup.SetupModel.initialValue
 
@@ -47,17 +65,17 @@ stylesheet =
 view: Model -> Html Msg
 view model =
   case model.state of
-  Setup -> div [] [ stylesheet,  
-    Phase.Setup.SetupScreen.render model
-  ]
-  PlayersChoosingTiles -> div [] [ stylesheet,
-    Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model
-  ]
-  MakingLoans -> Html.text "NOT IMPLEMENTED"
-  PlayerTurn -> Html.text "NOT IMPLEMENTED"
-  PayDebts -> Html.text "NOT IMPLEMENTED"
-  CollectProfits -> Html.text "NOT IMPLEMENTED"
-  EventsDraw -> Html.text "NOT IMPLEMENTED"
+    Setup -> div [] [ stylesheet,  
+        Phase.Setup.SetupScreen.render model
+    ]
+    PlayersChoosingTiles -> div [] [ stylesheet,
+        Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model
+    ]
+    MakingLoans -> Html.text "NOT IMPLEMENTED"
+    PlayerTurn -> Html.text "NOT IMPLEMENTED"
+    PayDebts -> Html.text "NOT IMPLEMENTED"
+    CollectProfits -> Html.text "NOT IMPLEMENTED"
+    EventsDraw -> Html.text "NOT IMPLEMENTED"
   
 
 update : Msg -> Model -> Model

@@ -36,8 +36,8 @@ css =
 
 renderLandTileOnLocation : (Location -> Msg) -> Location -> LandTile -> Html Msg
 renderLandTileOnLocation onclickMsg location tile = if tile.facingUp then 
-    Html.td [class [tile.landType], onClick (onclickMsg location)] [Html.text (toString location)] 
-    else Html.td [class [Hidden], onClick (onclickMsg location)] [Html.text (toString location)]
+    Html.td [class [tile.landType], onClick (onclickMsg location)] [Html.text tile.owner] 
+    else Html.td [class [Hidden], onClick (onclickMsg location)] []
 
 renderLandTilesLine : List (Html Msg) -> Html Msg 
 renderLandTilesLine tileCellRow = Html.tr [] tileCellRow
