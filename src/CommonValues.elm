@@ -6,7 +6,7 @@ import Phase.Setup.SetupModel exposing (..)
 import Dict exposing (..)
 
 noOwner : String
-noOwner = "NONE"
+noOwner = ""
 
 type Land = 
     Empty 

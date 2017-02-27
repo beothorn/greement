@@ -59,16 +59,15 @@ stylesheet =
         children = []
     in
         node tag attrs children
+ 
+renderView : Model -> Html Msg -> Html Msg
+renderView model element = div [] <| [stylesheet] ++ (List.map Html.text model.problems) ++ [element]
 
 view: Model -> Html Msg
 view model =
   case model.state of
-    Setup -> div [] [ stylesheet,  
-        Phase.Setup.SetupScreen.render model
-    ]
-    PlayersChoosingTiles -> div [] [ stylesheet,
-        Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model
-    ]
+    Setup ->  renderView model <| Phase.Setup.SetupScreen.render model 
+    PlayersChoosingTiles -> renderView model <| Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model
     MakingFirstLoans -> Html.text "NOT IMPLEMENTED"
     PlayerTurn -> Html.text "NOT IMPLEMENTED"
     PayDebts -> Html.text "NOT IMPLEMENTED"

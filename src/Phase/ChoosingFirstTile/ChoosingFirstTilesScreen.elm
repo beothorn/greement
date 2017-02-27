@@ -21,7 +21,21 @@ onStateChange model event =
                 playerChoosingTile = choosingFirstTilesModel.playerChoosingTile
                 playersLeft = List.filter (\p -> p /= playerChoosingTile) choosingFirstTilesModel.playersLeftChoosingTile
             in
-                if List.isEmpty playersLeft then
+                if isNotValidTile location model.board  then
+                    { model | 
+                        board = turnTileUp 
+                            location 
+                            model.board
+                        , problems = ["This land can't have an owner, choose again"]
+                    }
+                else if landAlreadyOwned location model.board  then
+                    { model | 
+                        board = turnTileUp 
+                            location 
+                            model.board
+                        , problems = ["This land is already owned, choose again"]
+                    }
+                else if List.isEmpty playersLeft then
                     { model | 
                         board = turnTileUpAnChangeOwner 
                             location 
@@ -48,6 +62,16 @@ render model = div [] [
     , valueTable model.values
  ]
 
+isNotValidTile : Location -> Matrix LandTile -> Bool
+isNotValidTile location board = 
+    let
+        tileType = (Matrix.get location board |> unpackOrCry).landType
+    in
+        (tileType == Lake) || (tileType == Mountain) 
+
+landAlreadyOwned : Location -> Matrix LandTile -> Bool
+landAlreadyOwned location board = (Matrix.get location board |> unpackOrCry).owner /= noOwner
+
 valueFromModel : Model -> ChoosingFirstTilesModel
 valueFromModel model = 
     let
@@ -63,6 +87,14 @@ unpackTile maybeTile =
     case maybeTile of
         Just tile -> tile
         Nothing -> Debug.crash "Invalid cell, this should never happen"
+
+turnTileUp : Location -> Matrix LandTile -> Matrix LandTile
+turnTileUp location board =  
+    let
+        oldTile = unpackTile ( Matrix.get location board )
+        newTile = {oldTile | facingUp = True}
+    in
+        Matrix.set location newTile board
 
 turnTileUpAnChangeOwner : Location -> String -> Matrix LandTile -> Matrix LandTile
 turnTileUpAnChangeOwner location newOwner board =  
