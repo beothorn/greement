@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import Dict exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Board.Game exposing (..)
@@ -19,30 +20,27 @@ gameConfig = {
     lakeCount = 5,
     mountainCount =5
  }
---|Land|Seed|Crop profit|Gold mine|Gold mine profit|Lake multiplier|Mountain multiplier|Distance tax(per square)|Loan multiplier|Cattle|Cattle profit|
---|2c  |2c  |3c         |5c       |4c              |1x             |1x                 |4c                      |x2             |5c    |6c           |
-
 
 initialState : Model
 initialState = Model 
     Setup 
     [] 
     (makeBoard gameConfig) 
-    [
-        ("Land",2,"c")
-        , ("Seed",2,"c")
-        , ("Crop profit",3,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-        , ("Seed",2,"c")
-    ]
+    (Dict.fromList [
+        ("Land",2)
+        , ("Seed",2)
+        , ("Crop profit",3)
+        , ("Gold mine",5)
+        , ("Gold mine profit",4)
+        , ("Lake multiplier",1)
+        , ("Mountain multiplier",1)
+        , ("Distance tax",4)
+        , ("Loan multiplier",2)
+        , ("Cattle",5)
+        , ("Cattle profit",6)
+        , ("Action card", 15)
+    ])
+    []
     Phase.ChoosingFirstTile.ChoosingFirstTilesModel.initialValue
     Phase.Setup.SetupModel.initialValue
 
@@ -71,7 +69,7 @@ view model =
     PlayersChoosingTiles -> div [] [ stylesheet,
         Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model
     ]
-    MakingLoans -> Html.text "NOT IMPLEMENTED"
+    MakingFirstLoans -> Html.text "NOT IMPLEMENTED"
     PlayerTurn -> Html.text "NOT IMPLEMENTED"
     PayDebts -> Html.text "NOT IMPLEMENTED"
     CollectProfits -> Html.text "NOT IMPLEMENTED"
@@ -80,6 +78,9 @@ view model =
 
 update : Msg -> Model -> Model
 update msg model =
-  case msg of
-    SetupMsg event -> Phase.Setup.SetupScreen.onStateChange model event
-    ChoosingFirstTilesMsg event -> Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.onStateChange model event
+    let
+      cleanModel = {model | problems = []}
+    in
+        case msg of
+            SetupMsg event -> Phase.Setup.SetupScreen.onStateChange cleanModel event
+            ChoosingFirstTilesMsg event -> Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.onStateChange cleanModel event

@@ -3,6 +3,7 @@ module CommonValues exposing (..)
 import Matrix exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 import Phase.Setup.SetupModel exposing (..)
+import Dict exposing (..)
 
 noOwner : String
 noOwner = "NONE"
@@ -24,7 +25,7 @@ type alias LandTile ={
 type GamePhases =
     Setup
     | PlayersChoosingTiles
-    | MakingLoans
+    | MakingFirstLoans
     | PlayerTurn
     | PayDebts
     | CollectProfits
@@ -34,7 +35,8 @@ type alias Model = {
     state : GamePhases
     ,players : List String
     ,board : Matrix LandTile
-    ,values : List (String, Int, String) --Name value suffix
+    ,values : Dict String Int
+    ,problems : List String
     ,choosingFirstTilesModel : ChoosingFirstTilesModel
     ,setupModel : SetupModel
 }

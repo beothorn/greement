@@ -3,6 +3,7 @@ module Phase.ChoosingFirstTile.ChoosingFirstTilesScreen exposing (..)
 import Html exposing (..)
 import CommonValues exposing (..)
 import Component.Board exposing (..)
+import Component.ValueTable exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 import Matrix exposing (..)
 import Common.Common exposing (..)
@@ -26,7 +27,7 @@ onStateChange model event =
                             location 
                             playerChoosingTile 
                             model.board |> turnAllTilesUp
-                        --, state = GettingLoans
+                        , state = MakingFirstLoans
                     }
                 else
                     { model | 
@@ -44,6 +45,7 @@ render : Model  -> Html Msg
 render model = div [] [
     board model.board (\location -> ChoosingFirstTilesMsg (OnTileClick location))
     , Html.text ("Player " ++ model.choosingFirstTilesModel.playerChoosingTile ++ " select a tile")
+    , valueTable model.values
  ]
 
 valueFromModel : Model -> ChoosingFirstTilesModel
