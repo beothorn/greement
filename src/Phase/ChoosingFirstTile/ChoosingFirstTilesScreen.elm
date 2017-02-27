@@ -29,12 +29,11 @@ onStateChange model event =
                         , problems = ["This land can't have an owner, choose again"]
                     }
                 else if landAlreadyOwned location model.board  then
-                    { model | 
-                        board = turnTileUp 
-                            location 
-                            model.board
-                        , problems = ["This land is already owned, choose again"]
-                    }
+                    { model | problems = ["This land is already owned, choose again"]}
+                else if landConnectedToLandAlreadyOwned location model.board  then
+                { model | 
+                    problems = ["You can't choose a land connected to another land already oned, choose again"]
+                }
                 else if List.isEmpty playersLeft then
                     { model | 
                         board = turnTileUpAnChangeOwner 
@@ -70,7 +69,24 @@ isNotValidTile location board =
         (tileType == Lake) || (tileType == Mountain) 
 
 landAlreadyOwned : Location -> Matrix LandTile -> Bool
-landAlreadyOwned location board = (Matrix.get location board |> unpackOrCry).owner /= noOwner
+landAlreadyOwned location board = 
+    let
+      maybeLand = Matrix.get location board
+    in
+        case maybeLand of
+            Just land -> land.owner /= noOwner
+            Nothing ->  False
+
+landConnectedToLandAlreadyOwned : Location -> Matrix LandTile -> Bool
+landConnectedToLandAlreadyOwned location board = 
+    let
+      landRow = Matrix.row location
+      landCol = Matrix.col location
+    in
+        if      landAlreadyOwned (loc  landRow      (landCol - 1)) board then True
+        else if landAlreadyOwned (loc  landRow      (landCol + 1)) board then True
+        else if landAlreadyOwned (loc (landRow - 1)  landCol     ) board then True 
+        else    landAlreadyOwned (loc (landRow + 1)  landCol     ) board
 
 valueFromModel : Model -> ChoosingFirstTilesModel
 valueFromModel model = 
