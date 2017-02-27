@@ -26,9 +26,9 @@ The table of values must be visible to all players, and will contain:
 - The gold mine profit 
 - The distance tax -   that is the tax when you buy a land that is not connected to any land you own. The tax is cumulative, so a land that 
 is 2 squares of distance (manhattan distance) from your land costs the normal price plus 2x tax. ie: if the tax is 4c it will cost you 8c
-- The lake multiplier  - All lands connected to a lake will have its value and profit multiplied by this factor - multipliers are cumulative, 
+- The lake multiplier  - All lands connected to a lake (vertically or horizontally, diagnals don't count) will have its value and profit multiplied by this factor - multipliers are cumulative, 
 if a land is connected to two lakes and the multiplier is 2x, the land will have a 4x multiplier
-- The mountain multiplier - All lands connected to a mountain will have its value and profit multiplied by this factor - multipliers are 
+- The mountain multiplier - All lands connected to a mountain (vertically or horizontally, diagnals don't count) will have its value and profit multiplied by this factor - multipliers are 
 cumulative even between lakes and mountains
 - The loan multiplier - This is the value multiplied to your debt at the end of your play.
 
@@ -37,8 +37,9 @@ Also, must be visible to all players:
 
 No value can go below one.
 
-|Land|Seed|Crop profit|Gold mine|Gold mine profit|Lake multiplier|Mountain multiplier|Distance tax(per square)|Loan multiplier|Cattle|Cattle profit|
-|2c  |2c  |3c         |5c       |4c              |1x             |1x                 |4c                      |x2             |5c    |6c           |
+|Land price ($)|Seed price ($)|Crop profit ($)|Gold mine ($)|Gold mine profit ($)|Lake multiplier (x)|Mountain multiplier (x)|Distance tax(per square) ($)|Loan multiplier (x)|Cattle price ($)|Cattle profit ($)|
+|--------------|--------------|---------------|-------------|--------------------|-------------------|-----------------------|----------------------------|-------------------|----------------|-----------------|
+|2             |2             |3              |5            |4                   |1                  |1                      |4                           |2                  |5               |6                |
 
 ##The loaning phase
 
