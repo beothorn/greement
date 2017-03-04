@@ -9,9 +9,20 @@ import Phase.Setup.SetupScreen exposing (..)
 import Phase.Setup.SetupModel exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesScreen exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
+import Phase.MakingFirstLoans.MakingFirstLoansScreen exposing (..)
+import Phase.MakingFirstLoans.MakingFirstLoansModel exposing (..)
 
-main : Program Never Model Msg
-main = beginnerProgram { model = initialState, view = view, update = update }
+
+--main : Program Never Model Msg
+--main = beginnerProgram { model = initialState, view = view, update = update }
+main =
+  Html.program
+    { init = init
+    , view = view
+    , update = update
+    , subscriptions = subscriptions
+    }
+
 
 gameConfig : GameConfig
 gameConfig = {
@@ -21,8 +32,8 @@ gameConfig = {
     mountainCount =5
  }
 
-initialState : Model
-initialState = Model 
+init : (Model, Cmd Msg)
+init = (Model 
     Setup 
     [] 
     (makeBoard gameConfig) 
@@ -42,7 +53,9 @@ initialState = Model
     ])
     []
     Phase.ChoosingFirstTile.ChoosingFirstTilesModel.initialValue
+    Phase.MakingFirstLoans.MakingFirstLoansModel.initialValue
     Phase.Setup.SetupModel.initialValue
+ ) ! []
 
 cssFileName : String
 cssFileName = "style.css"
@@ -68,18 +81,23 @@ view model =
   case model.state of
     Setup ->  renderView model <| Phase.Setup.SetupScreen.render model 
     PlayersChoosingTiles -> renderView model <| Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model
-    MakingFirstLoans -> Html.text "NOT IMPLEMENTED"
+    MakingFirstLoans -> renderView model <| Phase.MakingFirstLoans.MakingFirstLoansScreen.render model
     PlayerTurn -> Html.text "NOT IMPLEMENTED"
     PayDebts -> Html.text "NOT IMPLEMENTED"
     CollectProfits -> Html.text "NOT IMPLEMENTED"
     EventsDraw -> Html.text "NOT IMPLEMENTED"
   
 
-update : Msg -> Model -> Model
+subscriptions : Model -> Sub Msg
+subscriptions model = Sub.none
+
+update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     let
       cleanModel = {model | problems = []}
     in
         case msg of
+            NoOp -> (model, Cmd.none)
             SetupMsg event -> Phase.Setup.SetupScreen.onStateChange cleanModel event
             ChoosingFirstTilesMsg event -> Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.onStateChange cleanModel event
+            MakingFirstLoansMsg event -> Phase.MakingFirstLoans.MakingFirstLoansScreen.onStateChange cleanModel event

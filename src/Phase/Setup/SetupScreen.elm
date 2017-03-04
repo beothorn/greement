@@ -9,16 +9,16 @@ import CommonValues exposing (..)
 import Phase.Setup.SetupModel exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 
-onStateChange : Model -> SetupEvent -> Model
+onStateChange : Model -> SetupEvent -> (Model, Cmd Msg)
 onStateChange model event = 
     case event of
         OnPlayerInput input -> {model | 
             setupModel = updateModelForInput model.setupModel input 
-        }
+        } ! []
         AddPlayer -> {model |
             players = (model.setupModel.playerInput :: model.players), 
             setupModel = updateModelForInput model.setupModel "" 
-        }
+        } ! []
 
 render : Model -> Html Msg
 render model = 

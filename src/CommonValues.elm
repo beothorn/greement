@@ -2,6 +2,7 @@ module CommonValues exposing (..)
 
 import Matrix exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
+import Phase.MakingFirstLoans.MakingFirstLoansModel exposing (..)
 import Phase.Setup.SetupModel exposing (..)
 import Dict exposing (..)
 
@@ -31,6 +32,12 @@ type GamePhases =
     | CollectProfits
     | EventsDraw
 
+type alias PlayerData = {
+    name : String,
+    money : Int,
+    loan : Int
+}
+
 type alias Model = {
     state : GamePhases
     ,players : List String
@@ -38,9 +45,12 @@ type alias Model = {
     ,values : Dict String Int
     ,problems : List String
     ,choosingFirstTilesModel : ChoosingFirstTilesModel
+    ,makingFirstLoansModel : MakingFirstLoansModel
     ,setupModel : SetupModel
 }
 
 type Msg = 
-    SetupMsg SetupEvent
+    NoOp
+    | SetupMsg SetupEvent
     | ChoosingFirstTilesMsg ChoosingFirstTilesEvent
+    | MakingFirstLoansMsg MakingFirstLoansEvent

@@ -153,12 +153,12 @@ this - 3 cards
 owner will receive 1c per square taken, turning back to a 
 brown square - Anyone can pay 10c to avoid this - 2 cards
 
-The game proceeds until the time is up, then the player with the biggest wealth, or the smallest debt, wins!
-
-##Action cards
+###Action cards
 - Steal all gold mines from any player
 - Steal all regular land from any player
 - Steal all territories connected to all lake from any player
 - Steal all territories connected to all mountain from any player
 - Make a 20c loan on any players name (keep the money)
 - Steal any 5 territories
+
+The game proceeds until the time is up, then the player with the biggest wealth, or the smallest debt, wins!
