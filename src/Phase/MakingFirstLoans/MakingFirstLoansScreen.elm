@@ -1,5 +1,7 @@
 module Phase.MakingFirstLoans.MakingFirstLoansScreen exposing (..)
 
+import Common.Common exposing (..)
+import Board.Game exposing (..)
 import CommonValues exposing (..)
 import GameValues exposing (..)
 import Phase.MakingFirstLoans.MakingFirstLoansModel exposing (..)
@@ -16,7 +18,17 @@ onStateChange model event =
             board = turnAllTilesUp model.board
             ,makingFirstLoansModel = valueFromModel model
         } ! []
-        OnLoanInput _ -> model ! []
+        OnLoanInput value -> {model | makingFirstLoansModel = updateInput model.makingFirstLoansModel value } ! []
+        OnAcceptInput -> 
+            let
+                makingFirstLoansModel = model.makingFirstLoansModel
+                playerMakingLoan = makingFirstLoansModel.playerMakingLoan
+                playersLeft = List.filter (\p -> p /= playerMakingLoan) makingFirstLoansModel.playersLeftMakingLoan
+            in
+                { model | 
+                    players = updatePlayerLoan playerMakingLoan.name makingFirstLoansModel.loanValueInput model.players
+                    ,makingFirstLoansModel = movePlayerToAlreadyPlayedList makingFirstLoansModel playerMakingLoan playersLeft
+                } ! []
 
 render : Model  -> Html Msg
 render model = 
@@ -40,4 +52,14 @@ valueFromModel model =
         case players of
             [] -> Debug.crash "must have at least two players"
             [x] -> Debug.crash "must have at least two players"
-            x :: xs -> MakingFirstLoansModel 0 x.loan x xs
+            x :: xs -> MakingFirstLoansModel x.loan x.loan x xs
+
+updateInput : MakingFirstLoansModel -> String -> MakingFirstLoansModel
+updateInput oldModel value =  {oldModel | loanValueInput = toIntWithDefault value 0}
+
+movePlayerToAlreadyPlayedList : MakingFirstLoansModel -> Player -> List Player -> MakingFirstLoansModel
+movePlayerToAlreadyPlayedList model playerMakingLoan playersLeft = 
+    { model | 
+        playersLeftMakingLoan =  playersLeft
+        , playerMakingLoan = List.head playersLeft |> unpackOrCry "No players left, state should have changed"
+    }

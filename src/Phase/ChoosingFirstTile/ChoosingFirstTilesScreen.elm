@@ -44,7 +44,10 @@ onStateChange model event =
                             model.board
                         , state = MakingFirstLoans
                         , players = Bgame.updatePlayerLoan playerChoosingTile.name
-                            (Bgame.getPriceFor (Matrix.get location  model.board |> unpackOrCry).landType model.values )
+                            (Bgame.getPriceFor 
+                                (Matrix.get location model.board |> unpackOrCry ("Invalid land location "++toString location)).landType 
+                                model.values 
+                            )
                             model.players
                     } ! [message (MakingFirstLoansMsg LoansModel.Start)]
                 else
@@ -58,7 +61,10 @@ onStateChange model event =
                             playerChoosingTile
                             playersLeft
                         , players = Bgame.updatePlayerLoan playerChoosingTile.name
-                            (Bgame.getPriceFor (Matrix.get location  model.board |> unpackOrCry).landType model.values )
+                            (Bgame.getPriceFor 
+                                (Matrix.get location  model.board |> unpackOrCry ("Invalid land location "++toString location)).landType 
+                                model.values
+                            )
                             model.players
                     } ! []
 
@@ -71,7 +77,7 @@ render model = div [] [
 isNotValidTile : Location -> Matrix LandTile -> Bool
 isNotValidTile location board = 
     let
-        tileType = (Matrix.get location board |> unpackOrCry).landType
+        tileType = (Matrix.get location board |> unpackOrCry ("Invalid land location "++toString location)).landType
     in
         (tileType == Lake) || (tileType == Mountain) 
 
@@ -131,5 +137,5 @@ movePlayerToAlreadyPlayedList : ChoosingFirstTilesModel -> Player -> List Player
 movePlayerToAlreadyPlayedList model playerChoosingTile playersLeft = 
     { model | 
         playersLeftChoosingTile =  playersLeft
-        , playerChoosingTile = List.head playersLeft |> unpackOrCry
+        , playerChoosingTile = List.head playersLeft |> unpackOrCry "No players left, state should have changed"
     }

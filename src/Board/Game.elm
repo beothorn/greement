@@ -9,9 +9,9 @@ import Common.Common exposing (..)
 getPriceFor : Land -> Dict String Int -> Int
 getPriceFor land valueTable = 
     case land of
-        Empty -> Dict.get "Land" valueTable |> unpackOrCry
+        Empty -> Dict.get "Land" valueTable |> unpackOrCry "'Land' should be on value table"
         Crops  -> 0
-        GoldMine -> Dict.get "Gold mine" valueTable |> unpackOrCry
+        GoldMine -> Dict.get "Gold mine" valueTable |> unpackOrCry "'Gold mine' should be on value table"
         Lake -> 0
         Mountain -> 0
         Hidden -> 0
