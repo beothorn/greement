@@ -1,10 +1,12 @@
 module Phase.MakingFirstLoans.MakingFirstLoansModel exposing (..)
+
+import GameValues exposing (..)
  
 type alias MakingFirstLoansModel = {
     loanValueInput : Int
     ,minimunLoan : Int
-    ,playerMakingLoan : String
-    ,playersLeftChoosingTile : List String
+    ,playerMakingLoan : Player
+    ,playersLeftChoosingTile : List Player
 }
 
 type MakingFirstLoansEvent = 
@@ -12,4 +14,4 @@ type MakingFirstLoansEvent =
     | OnLoanInput String
 
 initialValue : MakingFirstLoansModel
-initialValue = MakingFirstLoansModel 0 0 "" []
+initialValue = MakingFirstLoansModel 0 0 GameValues.noPlayer []

@@ -2,14 +2,15 @@ module Phase.MakingFirstLoans.Components.LoanInputForm exposing (..)
 
 import Html exposing (..)
 import Html.Attributes as Attr
+import GameValues exposing (..)
 
-loanInput : String -> Int -> Html msg
-loanInput playerName minimunValue =
+loanInput : Player -> Int -> Html msg
+loanInput player minimunValue =
     let
         minimunAsString = toString minimunValue
     in
     div [] [
-        Html.text <| "Please " ++ playerName ++ " choose the value of your first loan:",
+        Html.text <| "Please " ++ player.name ++ " choose the value of your first loan:",
         Html.input [
             Attr.type_ "number"
             ,Attr.min minimunAsString

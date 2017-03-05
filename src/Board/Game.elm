@@ -1,8 +1,23 @@
-module Board.Game exposing (..)
+module Board.Game exposing (makeBoard,GameConfig,getPriceFor,updatePlayerLoan)
 
 import Random
-import CommonValues exposing (..) 
+import GameValues exposing (..)
+import Dict exposing (..)
 import Matrix exposing (..)
+import Common.Common exposing (..)
+
+getPriceFor : Land -> Dict String Int -> Int
+getPriceFor land valueTable = 
+    case land of
+        Empty -> Dict.get "Land" valueTable |> unpackOrCry
+        Crops  -> 0
+        GoldMine -> Dict.get "Gold mine" valueTable |> unpackOrCry
+        Lake -> 0
+        Mountain -> 0
+        Hidden -> 0
+
+updatePlayerLoan : String -> Int -> List Player -> List Player
+updatePlayerLoan playerName newLoan oldPlayers = List.map (\p -> if p.name == playerName then {p|loan = newLoan} else p ) oldPlayers
 
 makeBoard : GameConfig -> Matrix LandTile
 makeBoard gameConfig =
@@ -47,11 +62,14 @@ makeRandomTuples max qntd seed = makeRandomTuplesExcluding max qntd seed []
 
 getLand: List (Int, Int) -> List (Int, Int) ->  List (Int, Int) -> Location ->LandTile
 getLand goldMinePositions lakePositions mountainsPositions location = 
-    if List.member location goldMinePositions then
-        {landType = GoldMine, owner = noOwner, facingUp = False}
-    else if List.member location lakePositions then
-        {landType = Lake, owner = noOwner, facingUp = False}
-    else if List.member location mountainsPositions then
-        {landType = Mountain, owner = noOwner, facingUp = False}
-    else
-        {landType = Empty, owner = noOwner, facingUp = False}
+    let
+      noOwner = GameValues.noPlayer
+    in
+        if List.member location goldMinePositions then
+            {landType = GoldMine, owner = noOwner, facingUp = False}
+        else if List.member location lakePositions then
+            {landType = Lake, owner = noOwner, facingUp = False}
+        else if List.member location mountainsPositions then
+            {landType = Mountain, owner = noOwner, facingUp = False}
+        else
+            {landType = Empty, owner = noOwner, facingUp = False}

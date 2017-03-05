@@ -8,6 +8,7 @@ import Html exposing (..)
 import Html.Events exposing (..)
 import Matrix exposing (..)
 import CommonValues exposing (..)
+import GameValues exposing (..)
 
 board : Matrix LandTile -> (Location -> Msg) -> Html Msg
 board tilesRows onclickMsg = Html.table [] (renderLandTiles tilesRows onclickMsg)
@@ -36,7 +37,7 @@ css =
 
 renderLandTileOnLocation : (Location -> Msg) -> Location -> LandTile -> Html Msg
 renderLandTileOnLocation onclickMsg location tile = if tile.facingUp then 
-    Html.td [class [tile.landType], onClick (onclickMsg location)] [Html.text tile.owner] 
+    Html.td [class [tile.landType], onClick (onclickMsg location)] [Html.text tile.owner.name] 
     else Html.td [class [Hidden], onClick (onclickMsg location)] []
 
 renderLandTilesLine : List (Html Msg) -> Html Msg 

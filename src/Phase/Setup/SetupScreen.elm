@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Json.Decode as Json
 
 import CommonValues exposing (..)
+import GameValues exposing (..)
 import Phase.Setup.SetupModel exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 
@@ -16,7 +17,11 @@ onStateChange model event =
             setupModel = updateModelForInput model.setupModel input 
         } ! []
         AddPlayer -> {model |
-            players = (model.setupModel.playerInput :: model.players), 
+            players = ({
+                name = model.setupModel.playerInput,
+                money  = 0,
+                loan = 0
+            } :: model.players), 
             setupModel = updateModelForInput model.setupModel "" 
         } ! []
 
@@ -36,7 +41,7 @@ render model =
                     [],
             button [ onClick (SetupMsg AddPlayer)] [ text "Add"],
             button [ onClick (ChoosingFirstTilesMsg Start) ] [ text "Start"]
-        ] ++ List.map (\t -> Html.text (t ++ " ") ) players)
+        ] ++ List.map (\t -> Html.text (t.name ++ " ") ) players)
 
 
 onEnter : Msg -> Attribute Msg

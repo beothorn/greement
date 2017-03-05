@@ -1,6 +1,7 @@
 module Phase.MakingFirstLoans.MakingFirstLoansScreen exposing (..)
 
 import CommonValues exposing (..)
+import GameValues exposing (..)
 import Phase.MakingFirstLoans.MakingFirstLoansModel exposing (..)
 import Phase.MakingFirstLoans.Components.LoanInputForm exposing (..)
 import Html exposing (..)
@@ -13,6 +14,7 @@ onStateChange model event =
     case event of
         Start -> { model | 
             board = turnAllTilesUp model.board
+            ,makingFirstLoansModel = valueFromModel model
         } ! []
         OnLoanInput _ -> model ! []
 
@@ -38,4 +40,4 @@ valueFromModel model =
         case players of
             [] -> Debug.crash "must have at least two players"
             [x] -> Debug.crash "must have at least two players"
-            x :: xs -> MakingFirstLoansModel 0 0 x xs
+            x :: xs -> MakingFirstLoansModel 0 x.loan x xs

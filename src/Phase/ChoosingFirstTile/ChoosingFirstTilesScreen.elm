@@ -3,11 +3,12 @@ module Phase.ChoosingFirstTile.ChoosingFirstTilesScreen exposing (render, onStat
 import Html exposing (..)
 import Common.Common exposing (..)
 import CommonValues exposing (..)
+import GameValues exposing (..)
+import Board.Game as Bgame
 import Component.Board exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 import Phase.MakingFirstLoans.MakingFirstLoansModel as LoansModel
 import Matrix exposing (..)
-import Common.Common exposing (..)
 
 onStateChange : Model -> ChoosingFirstTilesEvent -> (Model, Cmd Msg)
 onStateChange model event = 
@@ -42,6 +43,9 @@ onStateChange model event =
                             playerChoosingTile 
                             model.board
                         , state = MakingFirstLoans
+                        , players = Bgame.updatePlayerLoan playerChoosingTile.name
+                            (Bgame.getPriceFor (Matrix.get location  model.board |> unpackOrCry).landType model.values )
+                            model.players
                     } ! [message (MakingFirstLoansMsg LoansModel.Start)]
                 else
                     { model | 
@@ -53,12 +57,15 @@ onStateChange model event =
                             choosingFirstTilesModel 
                             playerChoosingTile
                             playersLeft
+                        , players = Bgame.updatePlayerLoan playerChoosingTile.name
+                            (Bgame.getPriceFor (Matrix.get location  model.board |> unpackOrCry).landType model.values )
+                            model.players
                     } ! []
 
 render : Model  -> Html Msg
 render model = div [] [
     board model.board (\location -> ChoosingFirstTilesMsg (OnTileClick location))
-    , Html.text ("Player " ++ model.choosingFirstTilesModel.playerChoosingTile ++ " select a tile")
+    , Html.text ("Player " ++ model.choosingFirstTilesModel.playerChoosingTile.name ++ " select a tile")
  ]
 
 isNotValidTile : Location -> Matrix LandTile -> Bool
@@ -74,7 +81,7 @@ landAlreadyOwned location board =
       maybeLand = Matrix.get location board
     in
         case maybeLand of
-            Just land -> land.owner /= noOwner
+            Just land -> land.owner /= GameValues.noPlayer
             Nothing ->  False
 
 landConnectedToLandAlreadyOwned : Location -> Matrix LandTile -> Bool
@@ -112,7 +119,7 @@ turnTileUp location board =
     in
         Matrix.set location newTile board
 
-turnTileUpAnChangeOwner : Location -> String -> Matrix LandTile -> Matrix LandTile
+turnTileUpAnChangeOwner : Location -> Player -> Matrix LandTile -> Matrix LandTile
 turnTileUpAnChangeOwner location newOwner board =  
     let
         oldTile = unpackTile ( Matrix.get location board )
@@ -120,7 +127,7 @@ turnTileUpAnChangeOwner location newOwner board =
     in
         Matrix.set location newTile board
 
-movePlayerToAlreadyPlayedList : ChoosingFirstTilesModel -> String -> List String-> ChoosingFirstTilesModel
+movePlayerToAlreadyPlayedList : ChoosingFirstTilesModel -> Player -> List Player -> ChoosingFirstTilesModel
 movePlayerToAlreadyPlayedList model playerChoosingTile playersLeft = 
     { model | 
         playersLeftChoosingTile =  playersLeft

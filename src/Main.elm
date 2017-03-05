@@ -5,6 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Board.Game exposing (..)
 import CommonValues exposing (..)
+import GameValues exposing (..)
 import Phase.Setup.SetupScreen exposing (..)
 import Phase.Setup.SetupModel exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesScreen exposing (..)
@@ -13,8 +14,7 @@ import Phase.MakingFirstLoans.MakingFirstLoansScreen exposing (..)
 import Phase.MakingFirstLoans.MakingFirstLoansModel exposing (..)
 
 
---main : Program Never Model Msg
---main = beginnerProgram { model = initialState, view = view, update = update }
+main : Program Never Model Msg
 main =
   Html.program
     { init = init
@@ -38,7 +38,7 @@ init = (Model
     [] 
     (makeBoard gameConfig) 
     (Dict.fromList [
-        ("Land",2)
+        (  "Land",2)
         , ("Seed",2)
         , ("Crop profit",3)
         , ("Gold mine",5)
