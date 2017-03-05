@@ -15,10 +15,11 @@ What you’ll need
 Starting the game
 Put all squares, except the green ones, on the table facing down on a 10x10 grid.   
 Each player must choose a square to be his starting square. The square must not be connected to any other 
-player starting square.
+player starting square.  
+If the player chooses a mountain or a lake he must choose another square.  
 After all players have chosen their starting squares turn all squares up. The player will have to buy 
 the chosen square, so if a player chose a gold mine or land, he will have to pay the starting price.   
-If the player chooses a mountain or a lake he must choose another square touching his square.
+
 
 The table of values must be visible to all players, and will contain:
 - The land price
@@ -137,7 +138,7 @@ cattle square for this to be triggered - 3 cards
 - All gold mines are lost, all lands are converted to cattle, there must be at least one player with one 
 gold mine for this to be triggered - 2 cards
 - Decrease Gold profit - 5 cards
-- Decrease distance tax, Decrease lake and mountain multiplier - 2 cards
+- Decrease distance tax, Decrease lake and mountain multiplier - 10 cards
 - Decrease Action card price by 2 - 5 cards
 
 ###Pay to avoid:
