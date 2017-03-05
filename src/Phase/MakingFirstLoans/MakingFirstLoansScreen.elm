@@ -72,7 +72,12 @@ updateInput oldModel value default =
 
 movePlayerToAlreadyPlayedList : MakingFirstLoansModel -> Player -> List Player -> MakingFirstLoansModel
 movePlayerToAlreadyPlayedList model playerMakingLoan playersLeft = 
-    { model | 
-        playersLeftMakingLoan =  playersLeft
-        , playerMakingLoan = List.head playersLeft |> unpackOrCry "No players left, state should have changed"
-    }
+    let
+      nextPlayer = List.head playersLeft |> unpackOrCry "No players left, state should have changed"
+    in
+        { model | 
+            playersLeftMakingLoan =  playersLeft
+            ,playerMakingLoan = nextPlayer
+            ,minimunLoan = nextPlayer.loan
+            ,loanValueInput = nextPlayer.loan
+        }

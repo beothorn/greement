@@ -58,7 +58,6 @@ onStateChange model event =
                             model.board 
                         , choosingFirstTilesModel = movePlayerToAlreadyPlayedList 
                             choosingFirstTilesModel 
-                            playerChoosingTile
                             playersLeft
                         , players = Bgame.updatePlayerLoan playerChoosingTile.name
                             (Bgame.getPriceFor 
@@ -133,8 +132,8 @@ turnTileUpAnChangeOwner location newOwner board =
     in
         Matrix.set location newTile board
 
-movePlayerToAlreadyPlayedList : ChoosingFirstTilesModel -> Player -> List Player -> ChoosingFirstTilesModel
-movePlayerToAlreadyPlayedList model playerChoosingTile playersLeft = 
+movePlayerToAlreadyPlayedList : ChoosingFirstTilesModel -> List Player -> ChoosingFirstTilesModel
+movePlayerToAlreadyPlayedList model playersLeft = 
     { model | 
         playersLeftChoosingTile =  playersLeft
         , playerChoosingTile = List.head playersLeft |> unpackOrCry "No players left, state should have changed"
