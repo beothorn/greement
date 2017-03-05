@@ -33,9 +33,9 @@ onStateChange model event =
                 else if landAlreadyOwned location model.board  then
                     { model | problems = ["This land is already owned, choose again"]} ! []
                 else if landConnectedToLandAlreadyOwned location model.board  then
-                { model | 
-                    problems = ["You can't choose a land connected to another land already oned, choose again"]
-                } ! []
+                    { model | 
+                        problems = ["You can't choose a land connected to another land already oned, choose again"]
+                    } ! []
                 else if List.isEmpty playersLeft then
                     { model | 
                         board = turnTileUpAnChangeOwner 

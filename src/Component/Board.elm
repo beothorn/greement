@@ -1,4 +1,6 @@
-module Component.Board exposing (board)
+module Component.Board exposing (
+    board
+ )
 
 import Css exposing (..)
 import Css.Elements exposing (..)

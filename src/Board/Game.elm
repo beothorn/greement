@@ -1,4 +1,10 @@
-module Board.Game exposing (makeBoard,GameConfig,getPriceFor,updatePlayerLoan)
+module Board.Game exposing (
+    makeBoard
+    ,GameConfig
+    ,getPriceFor
+    ,updatePlayerLoan
+    ,updatePlayerMoney
+ )
 
 import Random
 import GameValues exposing (..)
@@ -17,7 +23,12 @@ getPriceFor land valueTable =
         Hidden -> 0
 
 updatePlayerLoan : String -> Int -> List Player -> List Player
-updatePlayerLoan playerName newLoan oldPlayers = List.map (\p -> if p.name == playerName then {p|loan = newLoan} else p ) oldPlayers
+updatePlayerLoan playerName newLoan oldPlayers = 
+    List.map (\p -> if p.name == playerName then {p| loan = newLoan} else p ) oldPlayers
+
+updatePlayerMoney : String -> Int -> List Player -> List Player
+updatePlayerMoney playerName newMoney oldPlayers = 
+    List.map (\p -> if p.name == playerName then {p| money = newMoney} else p ) oldPlayers
 
 makeBoard : GameConfig -> Matrix LandTile
 makeBoard gameConfig =
