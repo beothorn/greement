@@ -1,7 +1,7 @@
 # greement
 
 Goal of the game
-Be the richest player when the time is up. The total wealth of the player is the sum of the value of all his 
+Be the richest player when the turn count is up. The total wealth of the player is the sum of the value of all his 
 properties, plus his money minus his debts.
 What you’ll need
 - An alarm clock
@@ -16,7 +16,7 @@ Starting the game
 Put all squares, except the green ones, on the table facing down on a 10x10 grid.   
 Each player must choose a square to be his starting square. The square must not be connected to any other 
 player starting square.  
-If the player chooses a mountain or a lake he must choose another square.  
+If the player chooses a mountain, a lake or a gold mine he must choose another square.  
 After all players have chosen their starting squares turn all squares up. The player will have to buy 
 the chosen square, so if a player chose a gold mine or land, he will have to pay the starting price.   
 
@@ -27,8 +27,7 @@ The table of values must be visible to all players, and will contain:
 - The seeded land profit - a crop
 - The gold mine price
 - The gold mine profit 
-- The distance tax -   that is the tax when you buy a land that is not connected to any land you own. 
-The tax is cumulative, so a land that 
+- The distance tax -   that is the tax when you buy any land. The tax is cumulative, so a land that 
 is 2 squares of distance (manhattan distance) from your land costs the normal price plus 2x tax. ie: 
 if the tax is 4c it will cost you 8c
 - The lake multiplier  - All lands connected to a lake (vertically or horizontally, diagnals don't count) 
@@ -47,33 +46,18 @@ No value can go below one.
 
 |Land price ($)|Seed price ($)|Crop profit ($)|Gold mine ($)|Gold mine profit ($)|Lake multiplier (x)|Mountain multiplier (x)|Distance tax(per square) ($)|Loan multiplier (x)|Cattle price ($)|Cattle profit ($)|Action card ($)|
 |--------------|--------------|---------------|-------------|--------------------|-------------------|-----------------------|----------------------------|-------------------|----------------|-----------------|---------------|
-|2             |2             |3              |5            |4                   |1                  |1                      |4                           |2                  |5               |6                |15             |
-
-##The loaning phase
-
-All players start with zero money. To start the game they need to make a loan with the bank. The loan has 
-to be under 15c, 
-but enough to pay the starting square. The player write down his loaning on his paper.
-The player with the biggest loan begins. If two players have the biggest loans, the youngest starts. Note 
-that the player is obligated to pay for the square he chooses.
-The players decide how long the game will take, an alarm clock is set to play when the time ends. 
-The players can’t see the remaining time. 
-All players must use a pen and a paper to track their money. ie:
-15 <- had 15c                                              8 <- bank debt
-10 <- bought cattle                                      7 <-paid some debt
-They don’t need to show to other players they current finances until the game ends.
+|2             |2             |4              |6            |6                   |1                  |1                      |2                           |2                  |8               |8                |15             |
 
 ##A players turn
-The first thing, except on the first turn, is to collect the profit. This must be done before any 
+The first thing is to collect the profit. This must be done before any 
 other action. The subsequent
 actions can be performed in any order . At the end of the players turn, his debt will be multiplied by 
 the loan multiplier.
-The profit for each square is the value from the value table. After collecting the profit the player can:
-Pay his debt to the bank or make a new loan. If the player don’t have enough to pay, he must pay what 
-he can, and the remaining is multiplied 
-by the loan multiplier. He can pay his debts or make a new loan at any time on his turn.
-**Buy/sell land** - Note that if the player wants to buy or sell a land that is not connected with his own, 
-he must pay the distance tax. 
+The profit for each square is the value from the value table. 
+After collecting the profit the player can:
+**Pay his debt** - If the player has a debt, he can pay it any time.
+**Make a loan** - The loan will be granted only if the total debt plus the loan does not exceed 20c.
+**Buy/sell land** - Note that the player must pay the distance tax. 
 On a player to player negotiation, who pays the tax is up to the players to decide. An empty land costs 
 the price on the value table, 
 but an owned land can be sold at any price the owner wishes. For example, a player may charge a higher 
@@ -90,12 +74,11 @@ distance tax, being the distance the smaller distance between any of the player 
 donation, so if the other accepts the donation this doesn’t 
 mean he will respect the agreement.
 **Buy acion card** - A player can buy and use an action card, he can buy and use as many cards as he wants, 
-limnited by the deck size.  the action card returns to the deck and it is reshuffled.
+limited by the deck size.  the action card returns to the deck and it is reshuffled.
 
 At the end of the player turn after paying his debts, any debt left with the bank is multiplied by the loan 
 multiplier and the turn goes to the next 
 player to the right, and so on until it’s the first player turn again.
-Each player has 3 minutes to end his turn.
 
 ##Events
 
@@ -138,28 +121,28 @@ cattle square for this to be triggered - 3 cards
 - All gold mines are lost, all lands are converted to cattle, there must be at least one player with one 
 gold mine for this to be triggered - 2 cards
 - Decrease Gold profit - 5 cards
-- Decrease distance tax, Decrease lake and mountain multiplier - 10 cards
+- Decrease distance tax, Decrease lake and mountain multiplier - 10  cards
 - Decrease Action card price by 2 - 5 cards
 
 ###Pay to avoid:
-- Increase loan multiplier - Anyone can pay 10c to avoid this, the payment can come from more than one 
-player. - 3 cards
+- Increase loan multiplier - Pay 10c to avoid this. - 3 cards
 - Cattle disease, each player must pay 2c for each of his own squares with cattle. All unpaid squares are 
-converted back to crops but are still owned by the player. - 3 cards
+converted back to crops but are still owned by the player. - Pay 20c to avoid this. - 3 cards
 - Government appropriation Lake - All lands connected to a lake will be taken from the owner, the owner 
 will receive 2c per square taken, turning back to a 
-brown square if it's a crop. Gold mines als are taken but stay normal. - Anyone can pay 15c to avoid 
+brown square if it's a crop. Gold mines als are taken but stay normal. - Pay 15c to avoid 
 this - 3 cards
 - Government appropriation Mountain - All lands connected to a lake will be taken from the owner, the 
 owner will receive 1c per square taken, turning back to a 
-brown square - Anyone can pay 10c to avoid this - 2 cards
+brown square - Pay 10c to avoid this - 2 cards
 
 ###Action cards
-- Steal all gold mines from any player
+- Steal 3 gold mines from any player
 - Steal all regular land from any player
-- Steal all territories connected to all lake from any player
-- Steal all territories connected to all mountain from any player
-- Make a 20c loan on any players name (keep the money)
-- Steal any 5 territories
+- Steal all territories connected (including diagonally connected) to a chosen lake (including lands with no owner)
+- Steal all territories connected (including diagonally connected) to a chosen mountain (including lands with no owner)
+- Make a 5c loan on any players name (keep the money)
+- Steal any 5 territories (including lands with no owner)
+- Decide next two votes
 
-The game proceeds until the time is up, then the player with the biggest wealth, or the smallest debt, wins!
+The game proceeds until the turn count reaches a given number, then the player with the biggest wealth, or the smallest debt, wins!
