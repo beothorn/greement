@@ -12,10 +12,11 @@ type alias Model = {
     ,players : List Player
     ,board : Matrix LandTile
     ,values : Dict String Int
+    ,turnCounter : Int
     ,problems : List String
+    ,setupModel : SetupModel
     ,choosingFirstTilesModel : ChoosingFirstTilesModel
     ,makingFirstLoansModel : MakingFirstLoansModel
-    ,setupModel : SetupModel
 }
 
 type Msg = 

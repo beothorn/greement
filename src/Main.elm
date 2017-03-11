@@ -51,10 +51,11 @@ init = (Model
         , ("Cattle profit",6)
         , ("Action card", 15)
     ])
+    0
     []
+    Phase.Setup.SetupModel.initialValue
     Phase.ChoosingFirstTile.ChoosingFirstTilesModel.initialValue
     Phase.MakingFirstLoans.MakingFirstLoansModel.initialValue
-    Phase.Setup.SetupModel.initialValue
  ) ! []
 
 cssFileName : String
