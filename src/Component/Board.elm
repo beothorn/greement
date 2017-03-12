@@ -1,5 +1,6 @@
 module Component.Board exposing (
     board
+    ,css
  )
 
 import Css exposing (..)
