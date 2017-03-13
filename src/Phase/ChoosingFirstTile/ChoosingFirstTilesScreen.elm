@@ -42,7 +42,7 @@ onStateChange model event =
                             playerChoosingTile 
                             model.board
                         , state = CollectProfits
-                    } ! [message (CollectProfitsMsg CollectProfitsModel.Start)]
+                    } ! [message (CollectProfitsMsg <| CollectProfitsModel.Start model.players )]
                 else
                     { model | 
                         board = assignTileToPlayer 

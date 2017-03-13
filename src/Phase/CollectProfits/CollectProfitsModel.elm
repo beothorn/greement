@@ -9,7 +9,7 @@ type alias CollectProfitsModel = {
 }
 
 type CollectProfitsEvent = 
-    Start Player (List Player) --currentPlayer playersLeft
+    Start (List Player) --currentPlayer playersLeft
 
 initialValue : CollectProfitsModel
 initialValue = CollectProfitsModel (-1,-1) noPlayer []

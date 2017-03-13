@@ -8,7 +8,9 @@ import CommonValues exposing (..)
 import Phase.CollectProfits.CollectProfitsModel exposing (..)
 
 onStateChange : Model -> CollectProfitsEvent -> (Model, Cmd Msg)
-onStateChange model event = model ! []
+onStateChange model event = 
+    case event of 
+        Start playersLeft -> model ! []
 
 render : Model  -> Html Msg
 render model = div [] [
