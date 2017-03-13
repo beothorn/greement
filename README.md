@@ -74,9 +74,7 @@ be a crop, its profit is now the value in the “Cattle profit” on the value t
 
 **Donation** - A player owns his money, and can use it the way he chooses, including donating it to other 
 players to gain political support. Any donation must pay the 
-distance tax, being the distance the smaller distance between any of the player squares. Note that it’s a 
-donation, so if the other accepts the donation this doesn’t 
-mean he will respect the agreement.  
+distance tax, being the distance the smaller distance between any of the player squares. A player with no lands doesn't pay donation taxes to donate or receive money. Note that it’s a donation, so if the other accepts the donation this doesn’t mean he will respect the agreement.  
 
 **Buy acion card** - A player can buy and use an action card, he can buy and use as many cards as he wants, 
 limited by the deck size.  the action card returns to the deck and it is reshuffled.
