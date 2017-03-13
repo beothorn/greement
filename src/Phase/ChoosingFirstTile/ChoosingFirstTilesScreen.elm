@@ -6,7 +6,7 @@ import CommonValues exposing (..)
 import GameValues exposing (..)
 import Component.Board exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
-import Phase.PlayerTurn.PlayerTurnModel as PlayerTurnModel
+import Phase.CollectProfits.CollectProfitsModel as CollectProfitsModel
 import Matrix exposing (..)
 
 onStateChange : Model -> ChoosingFirstTilesEvent -> (Model, Cmd Msg)
@@ -41,8 +41,8 @@ onStateChange model event =
                             location 
                             playerChoosingTile 
                             model.board
-                        , state = PlayerTurn
-                    } ! [message (PlayerTurnMsg PlayerTurnModel.Start)]
+                        , state = CollectProfits
+                    } ! [message (CollectProfitsMsg CollectProfitsModel.Start)]
                 else
                     { model | 
                         board = assignTileToPlayer 
