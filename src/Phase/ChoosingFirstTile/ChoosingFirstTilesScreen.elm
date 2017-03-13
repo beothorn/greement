@@ -19,8 +19,8 @@ onStateChange model event =
         OnTileClick location -> 
             let
                 choosingFirstTilesModel = model.choosingFirstTilesModel
-                playerChoosingTile = choosingFirstTilesModel.playerChoosingTile
-                playersLeft = List.filter (\p -> p /= playerChoosingTile) choosingFirstTilesModel.playersLeftChoosingTile
+                playerChoosingTile = List.head choosingFirstTilesModel.playersLeft |> unpackOrCry "No Players on list"
+                playersLeft = List.drop 1 choosingFirstTilesModel.playersLeft
             in
                 if isNotValidTile location model.board  then
                     { model | 
@@ -55,10 +55,14 @@ onStateChange model event =
                     } ! []
 
 render : Model  -> Html Msg
-render model = div [] [
-    board model.board (\location -> ChoosingFirstTilesMsg (OnTileClick location))
-    , Html.text ("Player " ++ model.choosingFirstTilesModel.playerChoosingTile.name ++ " select a tile")
- ]
+render model = 
+    let
+        playerChoosingTile = List.head model.choosingFirstTilesModel.playersLeft |> unpackOrCry "No Players on list"
+    in
+    div [] [
+        board model.board (\location -> ChoosingFirstTilesMsg (OnTileClick location))
+        , Html.text ("Player " ++ playerChoosingTile.name ++ " select a tile")
+    ]
 
 isNotValidTile : Location -> Matrix LandTile -> Bool
 isNotValidTile location board = 
@@ -88,14 +92,7 @@ landConnectedToLandAlreadyOwned location board =
         else    landAlreadyOwned (loc (landRow + 1)  landCol     ) board
 
 valueFromModel : Model -> ChoosingFirstTilesModel
-valueFromModel model = 
-    let
-        players = model.players
-    in
-        case players of
-            [] -> Debug.crash "must have at least two players"
-            [x] -> Debug.crash "must have at least two players"
-            x :: xs -> ChoosingFirstTilesModel (-1,-1) x xs
+valueFromModel model = ChoosingFirstTilesModel (-1,-1) model.players
 
 unpackTile : Maybe a -> a
 unpackTile maybeTile =
@@ -124,8 +121,4 @@ assignTileToPlayer location newOwner board =
         Matrix.set location newTile board
 
 movePlayerToAlreadyPlayedList : ChoosingFirstTilesModel -> List Player -> ChoosingFirstTilesModel
-movePlayerToAlreadyPlayedList model playersLeft = 
-    { model | 
-        playersLeftChoosingTile =  playersLeft
-        , playerChoosingTile = List.head playersLeft |> unpackOrCry "No players left, state should have changed"
-    }
+movePlayerToAlreadyPlayedList model playersLeft = { model | playersLeft = playersLeft}

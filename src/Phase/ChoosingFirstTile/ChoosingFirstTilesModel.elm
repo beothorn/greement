@@ -5,8 +5,7 @@ import GameValues exposing (..)
 
 type alias ChoosingFirstTilesModel = {
     lastSelectedTile : (Int,Int)
-    ,playerChoosingTile : Player
-    ,playersLeftChoosingTile : List Player
+    ,playersLeft : List Player
 }
 
 type ChoosingFirstTilesEvent = 
@@ -14,4 +13,4 @@ type ChoosingFirstTilesEvent =
     | OnTileClick Location
 
 initialValue : ChoosingFirstTilesModel
-initialValue = ChoosingFirstTilesModel (-1,-1) noPlayer []
+initialValue = ChoosingFirstTilesModel (-1,-1) []
