@@ -3,13 +3,12 @@ module Phase.PlayerTurn.PlayerTurnModel exposing (..)
 import GameValues exposing (..)
 
 type alias PlayerTurnModel = {
-    lastSelectedTile : (Int,Int)
-    ,currentPlayer : Player
-    ,playersLeftToPlay : List Player
+    playersLeft : List Player
 }
 
 type PlayerTurnEvent = 
-    Start
+    Start (List Player)
+    | EndTurn
 
 initialValue : PlayerTurnModel
-initialValue = PlayerTurnModel (-1,-1) noPlayer []
+initialValue = PlayerTurnModel []

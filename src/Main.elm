@@ -57,6 +57,7 @@ init = (Model
     []
     SetupModel.initialValue
     ChoosingFirstTilesModel.initialValue
+    CollectProfitsModel.initialValue
     PlayerTurnModel.initialValue
  ) ! []
 

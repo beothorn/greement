@@ -19,7 +19,7 @@ onStateChange model event =
         OnTileClick location -> 
             let
                 choosingFirstTilesModel = model.choosingFirstTilesModel
-                playerChoosingTile = List.head choosingFirstTilesModel.playersLeft |> unpackOrCry "No Players on list"
+                playerChoosingTile = List.head choosingFirstTilesModel.playersLeft |> unpackOrCry "No Players on list on state change on ChoosingFirstTilesScreen"
                 playersLeft = List.drop 1 choosingFirstTilesModel.playersLeft
             in
                 if isNotValidTile location model.board  then
@@ -57,7 +57,7 @@ onStateChange model event =
 render : Model  -> Html Msg
 render model = 
     let
-        playerChoosingTile = List.head model.choosingFirstTilesModel.playersLeft |> unpackOrCry "No Players on list"
+        playerChoosingTile = List.head model.choosingFirstTilesModel.playersLeft |> unpackOrCry "No Players on list on render ChoosingFirstTilesScreen"
     in
     div [] [
         board model.board (\location -> ChoosingFirstTilesMsg (OnTileClick location))

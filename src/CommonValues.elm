@@ -17,6 +17,7 @@ type alias Model = {
     ,problems : List String
     ,setupModel : SetupModel
     ,choosingFirstTilesModel : ChoosingFirstTilesModel
+    ,collectProfitsModel : CollectProfitsModel
     ,playerTurnModel : PlayerTurnModel
 }
 
