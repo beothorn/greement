@@ -30,7 +30,7 @@ The table of values must be visible to all players, and will contain:
 - The gold mine profit 
 - The distance tax -   that is the tax when you buy any land. The tax is cumulative, so a land that 
 is 2 squares of distance (manhattan distance) from your land costs the normal price plus 2x tax. ie: 
-if the tax is 4c it will cost you 8c
+if the tax is 4c it will cost you 8c . The tax is also applied on player donations. If a player has no lands he doesn't need to pay donation taxes.  
 - The lake multiplier  - All lands connected to a lake (vertically or horizontally, diagnals don't count) 
 will have its value and profit multiplied by this factor - multipliers are cumulative, 
 if a land is connected to two lakes and the multiplier is 2x, the land will have a 4x multiplier
