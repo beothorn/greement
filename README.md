@@ -1,4 +1,4 @@
-# greement
+#Greement
 
 Goal of the game
 Be the richest player when the turn count is up. The total wealth of the player is the sum of the value of all his 
@@ -17,6 +17,7 @@ Put all squares, except the green ones, on the table facing down on a 10x10 grid
 Each player must choose a square to be his starting square. The square must not be connected to any other 
 player starting square.  
 If the player chooses a mountain, a lake or a gold mine he must choose another square.  
+The tile is converted to a crop right after the player chooses it.  
 After all players have chosen their starting squares turn all squares up. The player will have to buy 
 the chosen square, so if a player chose a gold mine or land, he will have to pay the starting price.   
 
@@ -55,30 +56,33 @@ actions can be performed in any order . At the end of the players turn, his debt
 the loan multiplier.
 The profit for each square is the value from the value table. 
 After collecting the profit the player can:
-**Pay his debt** - If the player has a debt, he can pay it any time.
-**Make a loan** - The loan will be granted only if the total debt plus the loan does not exceed 20c.
+**Pay his debt** - If the player has a debt, he can pay it any time.  
+
+**Make a loan** - The loan will be granted only if the total debt plus the loan does not exceed 20c.  
+
 **Buy/sell land** - Note that the player must pay the distance tax. 
 On a player to player negotiation, who pays the tax is up to the players to decide. An empty land costs 
 the price on the value table, 
 but an owned land can be sold at any price the owner wishes. For example, a player may charge a higher 
-price for a land with a double profit multiplier.
+price for a land with a double profit multiplier.  
+
 **Seed a land** - Brown squares are unseeded land, to make a profit the player must seed his land, turning 
-it on a crop. When a land is seeded a 
-green square replaces the brown one.
+it on a crop. When a land is seeded a green square replaces the brown one.  
+
 **Buy cattle** - A player can convert a crop square on a cattle square by buying cattle. The square ceases to 
-be a crop, its profit is now the value in 
-the “Cattle profit” on the value table.
+be a crop, its profit is now the value in the “Cattle profit” on the value table.  
+
 **Donation** - A player owns his money, and can use it the way he chooses, including donating it to other 
 players to gain political support. Any donation must pay the 
 distance tax, being the distance the smaller distance between any of the player squares. Note that it’s a 
 donation, so if the other accepts the donation this doesn’t 
-mean he will respect the agreement.
+mean he will respect the agreement.  
+
 **Buy acion card** - A player can buy and use an action card, he can buy and use as many cards as he wants, 
 limited by the deck size.  the action card returns to the deck and it is reshuffled.
 
 At the end of the player turn after paying his debts, any debt left with the bank is multiplied by the loan 
-multiplier and the turn goes to the next 
-player to the right, and so on until it’s the first player turn again.
+multiplier and the turn goes to the next player to the right, and so on until it’s the first player turn again.
 
 ##Events
 

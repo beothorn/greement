@@ -6,12 +6,14 @@ import Html.Attributes exposing (..)
 import Board.Game exposing (..)
 import CommonValues exposing (..)
 import GameValues exposing (..)
-import Phase.Setup.SetupScreen exposing (..)
-import Phase.Setup.SetupModel exposing (..)
-import Phase.ChoosingFirstTile.ChoosingFirstTilesScreen exposing (..)
-import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
-import Phase.MakingFirstLoans.MakingFirstLoansScreen exposing (..)
-import Phase.MakingFirstLoans.MakingFirstLoansModel exposing (..)
+import Phase.Setup.SetupScreen as SetupScreen
+import Phase.Setup.SetupModel as SetupModel
+import Phase.ChoosingFirstTile.ChoosingFirstTilesScreen as ChoosingFirstTilesScreen
+import Phase.ChoosingFirstTile.ChoosingFirstTilesModel as ChoosingFirstTilesModel 
+import Phase.PlayerTurn.PlayerTurnScreen as PlayerTurnScreen
+import Phase.PlayerTurn.PlayerTurnModel as PlayerTurnModel 
+import Phase.CollectProfits.CollectProfitsScreen as CollectProfitsScreen
+import Phase.CollectProfits.CollectProfitsModel as CollectProfitsModel 
 
 
 main : Program Never Model Msg
@@ -53,9 +55,9 @@ init = (Model
     ])
     0
     []
-    Phase.Setup.SetupModel.initialValue
-    Phase.ChoosingFirstTile.ChoosingFirstTilesModel.initialValue
-    Phase.MakingFirstLoans.MakingFirstLoansModel.initialValue
+    SetupModel.initialValue
+    ChoosingFirstTilesModel.initialValue
+    PlayerTurnModel.initialValue
  ) ! []
 
 cssFileName : String
@@ -80,12 +82,11 @@ renderView model element = div [] <| [stylesheet] ++ (List.map Html.text model.p
 view: Model -> Html Msg
 view model =
   case model.state of
-    Setup ->  renderView model <| Phase.Setup.SetupScreen.render model 
-    PlayersChoosingTiles -> renderView model <| Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.render model
-    MakingFirstLoans -> renderView model <| Phase.MakingFirstLoans.MakingFirstLoansScreen.render model
-    PlayerTurn -> Html.text "NOT IMPLEMENTED"
+    Setup ->  renderView model <| SetupScreen.render model 
+    PlayersChoosingTiles -> renderView model <| ChoosingFirstTilesScreen.render model
+    CollectProfits -> renderView model <| CollectProfitsScreen.render model
+    PlayerTurn -> renderView model <| PlayerTurnScreen.render model
     PayDebts -> Html.text "NOT IMPLEMENTED"
-    CollectProfits -> Html.text "NOT IMPLEMENTED"
     EventsDraw -> Html.text "NOT IMPLEMENTED"
   
 
@@ -99,6 +100,7 @@ update msg model =
     in
         case msg of
             NoOp -> (model, Cmd.none)
-            SetupMsg event -> Phase.Setup.SetupScreen.onStateChange cleanModel event
-            ChoosingFirstTilesMsg event -> Phase.ChoosingFirstTile.ChoosingFirstTilesScreen.onStateChange cleanModel event
-            MakingFirstLoansMsg event -> Phase.MakingFirstLoans.MakingFirstLoansScreen.onStateChange cleanModel event
+            SetupMsg event -> SetupScreen.onStateChange cleanModel event
+            ChoosingFirstTilesMsg event -> ChoosingFirstTilesScreen.onStateChange cleanModel event
+            CollectProfitsMsg event -> CollectProfitsScreen.onStateChange cleanModel event
+            PlayerTurnMsg event -> PlayerTurnScreen.onStateChange cleanModel event

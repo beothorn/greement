@@ -4,10 +4,9 @@ import Html exposing (..)
 import Common.Common exposing (..)
 import CommonValues exposing (..)
 import GameValues exposing (..)
-import Board.Game as Bgame
 import Component.Board exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
-import Phase.MakingFirstLoans.MakingFirstLoansModel as LoansModel
+import Phase.PlayerTurn.PlayerTurnModel as PlayerTurnModel
 import Matrix exposing (..)
 
 onStateChange : Model -> ChoosingFirstTilesEvent -> (Model, Cmd Msg)
@@ -28,7 +27,7 @@ onStateChange model event =
                         board = turnTileUp 
                             location 
                             model.board
-                        , problems = ["This land can't have an owner, choose again"]
+                        , problems = ["This land can't be a starting land, choose again"]
                     } ! []
                 else if landAlreadyOwned location model.board  then
                     { model | problems = ["This land is already owned, choose again"]} ! []
@@ -38,33 +37,21 @@ onStateChange model event =
                     } ! []
                 else if List.isEmpty playersLeft then
                     { model | 
-                        board = turnTileUpAnChangeOwner 
+                        board = assignTileToPlayer 
                             location 
                             playerChoosingTile 
                             model.board
-                        , state = MakingFirstLoans
-                        , players = Bgame.updatePlayerLoan playerChoosingTile.name
-                            (Bgame.getPriceFor 
-                                (Matrix.get location model.board |> unpackOrCry ("Invalid land location "++toString location)).landType 
-                                model.values 
-                            )
-                            model.players
-                    } ! [message (MakingFirstLoansMsg LoansModel.Start)]
+                        , state = PlayerTurn
+                    } ! [message (PlayerTurnMsg PlayerTurnModel.Start)]
                 else
                     { model | 
-                        board = turnTileUpAnChangeOwner 
+                        board = assignTileToPlayer 
                             location 
                             playerChoosingTile 
                             model.board 
                         , choosingFirstTilesModel = movePlayerToAlreadyPlayedList 
                             choosingFirstTilesModel 
                             playersLeft
-                        , players = Bgame.updatePlayerLoan playerChoosingTile.name
-                            (Bgame.getPriceFor 
-                                (Matrix.get location  model.board |> unpackOrCry ("Invalid land location "++toString location)).landType 
-                                model.values
-                            )
-                            model.players
                     } ! []
 
 render : Model  -> Html Msg
@@ -78,7 +65,7 @@ isNotValidTile location board =
     let
         tileType = (Matrix.get location board |> unpackOrCry ("Invalid land location "++toString location)).landType
     in
-        (tileType == Lake) || (tileType == Mountain) 
+        (tileType == Lake) || (tileType == Mountain) || (tileType == GoldMine) 
 
 landAlreadyOwned : Location -> Matrix LandTile -> Bool
 landAlreadyOwned location board = 
@@ -124,11 +111,15 @@ turnTileUp location board =
     in
         Matrix.set location newTile board
 
-turnTileUpAnChangeOwner : Location -> Player -> Matrix LandTile -> Matrix LandTile
-turnTileUpAnChangeOwner location newOwner board =  
+assignTileToPlayer : Location -> Player -> Matrix LandTile -> Matrix LandTile
+assignTileToPlayer location newOwner board =  
     let
         oldTile = unpackTile ( Matrix.get location board )
-        newTile = {oldTile | facingUp = True, owner = newOwner}
+        newTile = {oldTile | 
+            facingUp = True
+            ,owner = newOwner
+            ,landType = Crops 
+        }
     in
         Matrix.set location newTile board
 

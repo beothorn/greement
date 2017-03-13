@@ -2,8 +2,9 @@ module CommonValues exposing (..)
 
 import Matrix exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
-import Phase.MakingFirstLoans.MakingFirstLoansModel exposing (..)
+import Phase.PlayerTurn.PlayerTurnModel exposing (..)
 import Phase.Setup.SetupModel exposing (..)
+import Phase.CollectProfits.CollectProfitsModel exposing (..) 
 import Dict exposing (..)
 import GameValues exposing (..)
 
@@ -16,11 +17,12 @@ type alias Model = {
     ,problems : List String
     ,setupModel : SetupModel
     ,choosingFirstTilesModel : ChoosingFirstTilesModel
-    ,makingFirstLoansModel : MakingFirstLoansModel
+    ,playerTurnModel : PlayerTurnModel
 }
 
 type Msg = 
     NoOp
     | SetupMsg SetupEvent
     | ChoosingFirstTilesMsg ChoosingFirstTilesEvent
-    | MakingFirstLoansMsg MakingFirstLoansEvent
+    | CollectProfitsMsg CollectProfitsEvent
+    | PlayerTurnMsg PlayerTurnEvent

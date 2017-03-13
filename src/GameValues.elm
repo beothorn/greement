@@ -20,10 +20,9 @@ type alias LandTile ={
 type GamePhases =
     Setup
     | PlayersChoosingTiles
-    | MakingFirstLoans
+    | CollectProfits
     | PlayerTurn
     | PayDebts
-    | CollectProfits
     | EventsDraw
 
 type alias Player = {
