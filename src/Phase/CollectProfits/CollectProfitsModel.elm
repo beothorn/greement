@@ -1,6 +1,6 @@
 module Phase.CollectProfits.CollectProfitsModel exposing (..)
 
-import GameValues exposing (..)
+import Player exposing (..)
 
 type alias CollectProfitsModel = {
     currentPlayerProfit : Int

@@ -1,4 +1,4 @@
-module CommonValues exposing (..)
+module Model exposing (Model)
 
 import Matrix exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
@@ -6,7 +6,9 @@ import Phase.PlayerTurn.PlayerTurnModel exposing (..)
 import Phase.Setup.SetupModel exposing (..)
 import Phase.CollectProfits.CollectProfitsModel exposing (..) 
 import Dict exposing (..)
-import GameValues exposing (..)
+import Player exposing (..)
+import Phase.GamePhases exposing (..)
+import LandTile exposing (..)
 
 type alias Model = {
     state : GamePhases
@@ -20,10 +22,3 @@ type alias Model = {
     ,collectProfitsModel : CollectProfitsModel
     ,playerTurnModel : PlayerTurnModel
 }
-
-type Msg = 
-    NoOp
-    | SetupMsg SetupEvent
-    | ChoosingFirstTilesMsg ChoosingFirstTilesEvent
-    | CollectProfitsMsg CollectProfitsEvent
-    | PlayerTurnMsg PlayerTurnEvent

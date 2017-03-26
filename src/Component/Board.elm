@@ -10,8 +10,9 @@ import Html.CssHelpers exposing (withNamespace)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Matrix exposing (..)
-import CommonValues exposing (..)
-import GameValues exposing (..)
+import Msg exposing (..)
+import LandTile exposing (..)
+import Land exposing (..)
 
 board : Matrix LandTile -> (Location -> Msg) -> Html Msg
 board tilesRows onclickMsg = Html.table [] (renderLandTiles tilesRows onclickMsg)

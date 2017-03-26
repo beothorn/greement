@@ -1,6 +1,6 @@
 module Phase.PlayerTurn.PlayerTurnModel exposing (..)
 
-import GameValues exposing (..)
+import Player exposing (..)
 import Matrix exposing (..)
 
 type alias PlayerTurnModel = {

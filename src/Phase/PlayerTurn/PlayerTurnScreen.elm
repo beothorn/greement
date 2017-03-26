@@ -6,9 +6,11 @@ module Phase.PlayerTurn.PlayerTurnScreen exposing (
 import Html exposing (..)
 import Html.Events exposing (..)
 import Matrix exposing (..)
-import CommonValues exposing (..)
+import Model exposing (..)
+import Msg exposing (..)
 import Common.Common exposing (..)
-import GameValues exposing (..)
+import Player exposing (..)
+import Phase.GamePhases exposing (..)
 import Component.Board exposing (..)
 import Component.ValueTable exposing (..)
 import Component.ConfirmationDialog exposing (..)
@@ -60,7 +62,7 @@ renderBuyConfirmationDialogIfBuying isBuying price yesMsg noMsg =
         Html.text ""
     else
         let
-          question = "Do you want to buy this land for " ++ toString price
+          question = "Do you want to buy this land for " ++ (toString price) ++ " plus tax "
         in
             confirmationFor question NoOp NoOp
         

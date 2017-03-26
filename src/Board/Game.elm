@@ -7,11 +7,12 @@ module Board.Game exposing (
  )
 
 import Random
-import GameValues exposing (..)
+import Player exposing (..)
+import Land exposing (..)
+import LandTile exposing (..)
 import Dict exposing (..)
 import Matrix exposing (..)
 import Common.Common exposing (..)
-
 getPriceFor : Land -> Dict String Int -> Int
 getPriceFor land valueTable = 
     case land of
@@ -74,7 +75,7 @@ makeRandomTuples max qntd seed = makeRandomTuplesExcluding max qntd seed []
 getLand: List (Int, Int) -> List (Int, Int) ->  List (Int, Int) -> Location ->LandTile
 getLand goldMinePositions lakePositions mountainsPositions location = 
     let
-      noOwner = GameValues.noPlayer
+      noOwner = noPlayer
     in
         if List.member location goldMinePositions then
             {landType = GoldMine, owner = noOwner, facingUp = False}

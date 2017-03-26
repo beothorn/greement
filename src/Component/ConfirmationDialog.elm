@@ -6,7 +6,7 @@ import Html exposing (..)
 import Html.Events exposing (..)
 import Html exposing (..)
 import Html.Events exposing (..)
-import CommonValues exposing (..)
+import Msg exposing (..)
 
 confirmationFor : String -> Msg -> Msg -> Html Msg
 confirmationFor question yesResponse noResponse = 

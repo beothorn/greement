@@ -1,7 +1,7 @@
 module Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 
 import Matrix exposing (..)
-import GameValues exposing (..)
+import Player exposing (..)
 
 type alias ChoosingFirstTilesModel = {
     lastSelectedTile : (Int,Int)

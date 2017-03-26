@@ -4,8 +4,9 @@ import Dict exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Board.Game exposing (..)
-import CommonValues exposing (..)
-import GameValues exposing (..)
+import Model exposing (..)
+import Msg exposing (..)
+import Phase.GamePhases exposing (..)
 import Phase.Setup.SetupScreen as SetupScreen
 import Phase.Setup.SetupModel as SetupModel
 import Phase.ChoosingFirstTile.ChoosingFirstTilesScreen as ChoosingFirstTilesScreen

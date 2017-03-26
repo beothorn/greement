@@ -2,8 +2,12 @@ module Phase.ChoosingFirstTile.ChoosingFirstTilesScreen exposing (render, onStat
 
 import Html exposing (..)
 import Common.Common exposing (..)
-import CommonValues exposing (..)
-import GameValues exposing (..)
+import Model exposing (..)
+import Msg exposing (..)
+import Player exposing (..)
+import LandTile exposing (..)
+import Land exposing (..)
+import Phase.GamePhases exposing (..)
 import Component.Board exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 import Phase.CollectProfits.CollectProfitsModel as CollectProfitsModel
@@ -77,7 +81,7 @@ landAlreadyOwned location board =
       maybeLand = Matrix.get location board
     in
         case maybeLand of
-            Just land -> land.owner /= GameValues.noPlayer
+            Just land -> land.owner /= noPlayer
             Nothing ->  False
 
 landConnectedToLandAlreadyOwned : Location -> Matrix LandTile -> Bool

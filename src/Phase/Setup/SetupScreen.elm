@@ -5,8 +5,8 @@ import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import Json.Decode as Json
 
-import CommonValues exposing (..)
-import GameValues exposing (..)
+import Model exposing (..)
+import Msg exposing (..)
 import Phase.Setup.SetupModel exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 
