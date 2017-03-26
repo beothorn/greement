@@ -1,7 +1,6 @@
 module Board.Game exposing (
     makeBoard
     ,GameConfig
-    ,getPriceFor
     ,updatePlayerLoan
     ,updatePlayerMoney
  )
@@ -10,18 +9,7 @@ import Random
 import Player exposing (..)
 import Land exposing (..)
 import LandTile exposing (..)
-import Dict exposing (..)
 import Matrix exposing (..)
-import Common.Common exposing (..)
-getPriceFor : Land -> Dict String Int -> Int
-getPriceFor land valueTable = 
-    case land of
-        Empty -> Dict.get "Land" valueTable |> unpackOrCry "'Land' should be on value table"
-        Crops  -> 0
-        GoldMine -> Dict.get "Gold mine" valueTable |> unpackOrCry "'Gold mine' should be on value table"
-        Lake -> 0
-        Mountain -> 0
-        Hidden -> 0
 
 updatePlayerLoan : String -> Int -> List Player -> List Player
 updatePlayerLoan playerName newLoan oldPlayers = 

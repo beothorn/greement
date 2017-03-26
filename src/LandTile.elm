@@ -1,5 +1,6 @@
 module LandTile exposing(
     LandTile
+    ,emptyLandTile
  )
 
 import Land exposing (Land)
@@ -10,3 +11,6 @@ type alias LandTile ={
     , owner : Player
     , facingUp : Bool
 }  
+
+emptyLandTile : LandTile
+emptyLandTile = LandTile Land.Empty Player.noPlayer False

@@ -1,4 +1,7 @@
-module Phase.Setup.SetupScreen exposing (..)
+module Phase.Setup.SetupScreen exposing (
+    render
+    ,onStateChange
+ )
 
 import Html exposing (..)
 import Html.Events exposing (..)

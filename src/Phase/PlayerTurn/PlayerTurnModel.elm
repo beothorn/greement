@@ -6,7 +6,7 @@ import Matrix exposing (..)
 type alias PlayerTurnModel = {
     playersLeft : List Player
     ,isBuyingLand : Bool
-    ,landBeingBought : Location
+    ,landLocationBeingBought : Location
 }
 
 type PlayerTurnEvent = 

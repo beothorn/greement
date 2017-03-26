@@ -2,9 +2,18 @@ module Common.Common exposing (
     unpackOrCry
     ,message
     ,toIntWithDefault
+    ,getFromDictOrCry
  )
 
 import Task
+import Dict exposing (..)
+
+getFromDictOrCry : comparable -> Dict comparable a -> a 
+getFromDictOrCry key dict = 
+    let
+      value = Dict.get key dict
+    in
+      unpackOrCry ("Dict does not contain value for " ++ (toString key)) value
 
 unpackOrCry :  String -> Maybe a -> a
 unpackOrCry errorMessage maybeValue =

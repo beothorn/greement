@@ -1,11 +1,11 @@
 module Main exposing (..)
 
-import Dict exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Board.Game exposing (..)
+import Board.ValueTable exposing (..)
 import Model exposing (..)
-import Msg exposing (..)
+import Msg exposing (..) 
 import Phase.GamePhases exposing (..)
 import Phase.Setup.SetupScreen as SetupScreen
 import Phase.Setup.SetupModel as SetupModel
@@ -40,20 +40,7 @@ init = (Model
     Setup 
     [] 
     (makeBoard gameConfig) 
-    (Dict.fromList [
-        (  "Land",2)
-        , ("Seed",2)
-        , ("Crop profit",3)
-        , ("Gold mine",5)
-        , ("Gold mine profit",4)
-        , ("Lake multiplier",1)
-        , ("Mountain multiplier",1)
-        , ("Distance tax",4)
-        , ("Loan multiplier",2)
-        , ("Cattle",5)
-        , ("Cattle profit",6)
-        , ("Action card", 15)
-    ])
+    startingValueTable
     0
     []
     SetupModel.initialValue

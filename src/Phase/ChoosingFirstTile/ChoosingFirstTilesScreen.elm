@@ -1,4 +1,7 @@
-module Phase.ChoosingFirstTile.ChoosingFirstTilesScreen exposing (render, onStateChange)
+module Phase.ChoosingFirstTile.ChoosingFirstTilesScreen exposing (
+    render
+    ,onStateChange
+ )
 
 import Html exposing (..)
 import Common.Common exposing (..)
@@ -41,7 +44,7 @@ onStateChange model event =
                     } ! []
                 else if List.isEmpty playersLeft then
                     { model | 
-                        board = assignTileToPlayer 
+                        board = assignTileToPlayerAndShowAllTiles 
                             location 
                             playerChoosingTile 
                             model.board
@@ -123,6 +126,13 @@ assignTileToPlayer location newOwner board =
         }
     in
         Matrix.set location newTile board
+
+assignTileToPlayerAndShowAllTiles : Location -> Player -> Matrix LandTile -> Matrix LandTile
+assignTileToPlayerAndShowAllTiles location newOwner board =  
+    let
+        newBoard = assignTileToPlayer location newOwner board
+    in
+        Matrix.map (\ t -> {t| facingUp = True} )newBoard
 
 movePlayerToAlreadyPlayedList : ChoosingFirstTilesModel -> List Player -> ChoosingFirstTilesModel
 movePlayerToAlreadyPlayedList model playersLeft = { model | playersLeft = playersLeft}
