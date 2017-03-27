@@ -1,6 +1,7 @@
 module Board.ValueTable exposing (
     startingValueTable
     ,getPriceFor
+    ,getProfitFor
  )
 
 import Dict exposing (..)
@@ -13,13 +14,19 @@ landKey = "Land"
 goldMineKey : String
 goldMineKey = "Gold mine"
 
+cropProfitKey : String
+cropProfitKey = "Crop profit"
+
+goldMineProfitKey : String
+goldMineProfitKey = "Gold mine profit"
+
 startingValueTable : Dict String Int
 startingValueTable = Dict.fromList [
         (  landKey,2)
         , ("Seed",2)
-        , ("Crop profit",3)
+        , (cropProfitKey,3)
         , (goldMineKey,5)
-        , ("Gold mine profit",4)
+        , (goldMineProfitKey,4)
         , ("Lake multiplier",1)
         , ("Mountain multiplier",1)
         , ("Distance tax",4)
@@ -34,4 +41,11 @@ getPriceFor land valueTable =
     case land of
         Empty -> getFromDictOrCry landKey valueTable
         GoldMine -> getFromDictOrCry goldMineKey valueTable
+        otherwise -> 0
+
+getProfitFor : Land -> Dict String Int -> Int
+getProfitFor land valueTable = 
+    case land of
+        GoldMine -> getFromDictOrCry goldMineProfitKey valueTable
+        Crops -> getFromDictOrCry cropProfitKey valueTable
         otherwise -> 0

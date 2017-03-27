@@ -5,11 +5,13 @@ module Phase.CollectProfits.CollectProfitsScreen exposing (
 
 import Html exposing (..)
 import Matrix exposing (..)
+import Dict exposing (..)
 import Model exposing (..)
 import Msg exposing (..)
 import LandTile exposing (..)
 import Common.Common exposing (..)
 import Player exposing (..)
+import Board.ValueTable exposing (..)
 import Phase.GamePhases exposing (..)
 import Html.Events exposing (..)
 import Common.Common exposing (..)
@@ -22,10 +24,10 @@ onStateChange model event =
         Start playersLeft -> 
             let
                 currentPlayer = List.head playersLeft |> unpackOrCry "No Players on list onStateChange CollectProfitsScreen"
-                profit = calculateProfitFor currentPlayer model.board
+                profit = calculateProfitFor currentPlayer model.board model.values
             in
             {model| 
-                collectProfitsModel = CollectProfitsModel profit playersLeft
+                collectProfitsModel = CollectProfitsModel profit playersLeft 
                 ,players = giveProfitToPlayer currentPlayer model.players profit
             } ! []
         StartTurn -> {model|state = PlayerTurn} ! [
@@ -44,8 +46,13 @@ render model =
         ,button [onClick (CollectProfitsMsg StartTurn)] [ text "Start turn"]
     ]
 
-calculateProfitFor : Player -> Matrix LandTile -> number
-calculateProfitFor player board = 5
+calculateProfitFor : Player -> Matrix LandTile -> Dict String Int -> Int
+calculateProfitFor player board valueTable= 
+    let
+        allLands = Matrix.flatten board
+        allLandValue = List.map (\l -> if l.owner.name == player.name then (getProfitFor l.landType valueTable) else 0 ) allLands
+    in
+        List.sum allLandValue
 
 giveProfitToPlayer : Player -> List Player -> Int -> List Player
 giveProfitToPlayer player players profit = 
