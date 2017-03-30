@@ -13,7 +13,8 @@ import Land exposing (..)
 import Phase.GamePhases exposing (..)
 import Component.Board exposing (..)
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
-import Phase.CollectProfits.CollectProfitsModel as CollectProfitsModel
+import Phase.ChoosingFirstTile.ChoosingFirstTilesEvents exposing (..)
+import Phase.CollectProfits.CollectProfitsEvents exposing (..)
 import Matrix exposing (..)
 
 onStateChange : Model -> ChoosingFirstTilesEvent -> (Model, Cmd Msg)
@@ -49,7 +50,7 @@ onStateChange model event =
                             playerChoosingTile 
                             model.board
                         , state = CollectProfits
-                    } ! [message (CollectProfitsMsg <| CollectProfitsModel.Start model.players )]
+                    } ! [message (startCollectProfits model.players )]
                 else
                     { model | 
                         board = assignTileToPlayer 
@@ -67,7 +68,7 @@ render model =
         playerChoosingTile = List.head model.choosingFirstTilesModel.playersLeft |> unpackOrCry "No Players on list on render ChoosingFirstTilesScreen"
     in
     div [] [
-        board model.board (\location -> ChoosingFirstTilesMsg (OnTileClick location))
+        board model.board onTileClick
         , Html.text ("Player " ++ playerChoosingTile.name ++ " select a tile")
     ]
 
@@ -132,7 +133,7 @@ assignTileToPlayerAndShowAllTiles location newOwner board =
     let
         newBoard = assignTileToPlayer location newOwner board
     in
-        Matrix.map (\ t -> {t| facingUp = True} )newBoard
+        Matrix.map (\ t -> {t| facingUp = True} ) newBoard
 
 movePlayerToAlreadyPlayedList : ChoosingFirstTilesModel -> List Player -> ChoosingFirstTilesModel
 movePlayerToAlreadyPlayedList model playersLeft = { model | playersLeft = playersLeft}

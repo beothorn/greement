@@ -11,7 +11,8 @@ import Json.Decode as Json
 import Model exposing (..)
 import Msg exposing (..)
 import Phase.Setup.SetupModel exposing (..)
-import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
+import Phase.Setup.SetupEvents exposing (..)
+import Phase.ChoosingFirstTile.ChoosingFirstTilesEvents exposing (..)
 
 onStateChange : Model -> SetupEvent -> (Model, Cmd Msg)
 onStateChange model event = 
@@ -38,12 +39,12 @@ render model =
             input [ placeholder "Player Name"
                     , autofocus True
                     , value currentPlayerName
-                    , onInput (\s -> SetupMsg (OnPlayerInput s))
-                    , onEnter (SetupMsg AddPlayer) 
+                    , onInput onPlayerInput
+                    , onEnter addPlayer
                     ]
                     [],
-            button [ onClick (SetupMsg AddPlayer)] [ text "Add"],
-            button [ onClick (ChoosingFirstTilesMsg Start) ] [ text "Start"]
+            button [ onClick addPlayer] [ text "Add"],
+            button [ onClick startChoosingFirstTiles ] [ text "Start"]
         ] ++ List.map (\t -> Html.text (t.name ++ " ") ) players)
 
 

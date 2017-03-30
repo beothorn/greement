@@ -11,6 +11,8 @@ type alias PlayerTurnModel = {
 
 type PlayerTurnEvent = 
     Start (List Player)
+    | BuyClicked
+    | DontBuyClicked
     | TileClicked Location
     | EndTurn
 

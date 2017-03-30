@@ -16,7 +16,8 @@ import Phase.GamePhases exposing (..)
 import Html.Events exposing (..)
 import Common.Common exposing (..)
 import Phase.CollectProfits.CollectProfitsModel exposing (..)
-import Phase.PlayerTurn.PlayerTurnModel as PlayerTurnModel
+import Phase.CollectProfits.CollectProfitsEvents exposing (..)
+import Phase.PlayerTurn.PlayerTurnEvents exposing (..)
 
 onStateChange : Model -> CollectProfitsEvent -> (Model, Cmd Msg)
 onStateChange model event = 
@@ -31,7 +32,7 @@ onStateChange model event =
                 ,players = giveProfitToPlayer currentPlayer model.players profit
             } ! []
         StartTurn -> {model|state = PlayerTurn} ! [
-            message (PlayerTurnMsg <| PlayerTurnModel.Start model.collectProfitsModel.playersLeft)
+            message (startPlayerTurn model.collectProfitsModel.playersLeft)
         ]
 
 render : Model  -> Html Msg
@@ -43,7 +44,7 @@ render model =
     in
     div [] [
         text <| "Player "++currentPlayer.name++" receives "++(toString currentPlayerProfit)++"c ."
-        ,button [onClick (CollectProfitsMsg StartTurn)] [ text "Start turn"]
+        ,button [onClick startTurn] [ text "Start turn"]
     ]
 
 calculateProfitFor : Player -> Matrix LandTile -> Dict String Int -> Int

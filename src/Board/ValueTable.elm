@@ -2,6 +2,11 @@ module Board.ValueTable exposing (
     startingValueTable
     ,getPriceFor
     ,getProfitFor
+    ,landKey
+    ,goldMineKey
+    ,cropProfitKey
+    ,goldMineProfitKey
+    ,distanceTaxKey
  )
 
 import Dict exposing (..)
@@ -20,6 +25,9 @@ cropProfitKey = "Crop profit"
 goldMineProfitKey : String
 goldMineProfitKey = "Gold mine profit"
 
+distanceTaxKey : String
+distanceTaxKey = "Distance tax"
+
 startingValueTable : Dict String Int
 startingValueTable = Dict.fromList [
         (  landKey,2)
@@ -29,7 +37,7 @@ startingValueTable = Dict.fromList [
         , (goldMineProfitKey,4)
         , ("Lake multiplier",1)
         , ("Mountain multiplier",1)
-        , ("Distance tax",4)
+        , (distanceTaxKey,4)
         , ("Loan multiplier",2)
         , ("Cattle",5)
         , ("Cattle profit",6)

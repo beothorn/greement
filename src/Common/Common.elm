@@ -3,10 +3,12 @@ module Common.Common exposing (
     ,message
     ,toIntWithDefault
     ,getFromDictOrCry
+    ,renderIf
  )
 
 import Task
 import Dict exposing (..)
+import Html exposing (..)
 
 getFromDictOrCry : comparable -> Dict comparable a -> a 
 getFromDictOrCry key dict = 
@@ -26,3 +28,6 @@ message x = Task.perform identity (Task.succeed x)
 
 toIntWithDefault : String -> Int -> Int
 toIntWithDefault value default = String.toInt value |> Result.toMaybe |> Maybe.withDefault default
+
+renderIf : Bool -> Html a -> Html a
+renderIf condition html = if condition then html else Html.text ""
