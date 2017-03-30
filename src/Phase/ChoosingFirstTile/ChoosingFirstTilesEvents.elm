@@ -1,4 +1,7 @@
-module Phase.ChoosingFirstTile.ChoosingFirstTilesEvents exposing (..)
+module Phase.ChoosingFirstTile.ChoosingFirstTilesEvents exposing (
+    startChoosingFirstTiles
+    ,onTileClick
+ )
 
 import Phase.ChoosingFirstTile.ChoosingFirstTilesModel exposing (..)
 import Msg exposing (..)

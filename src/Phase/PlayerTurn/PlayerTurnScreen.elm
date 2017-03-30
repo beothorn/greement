@@ -24,6 +24,9 @@ onStateChange : Model -> PlayerTurnEvent -> (Model, Cmd Msg)
 onStateChange model event =
     let
       playerTurnModel = model.playerTurnModel
+      currentPlayer = List.head playerTurnModel.playersLeft |> unpackOrCry "Impossible! no player playing"
+      landLocationBeingBought = playerTurnModel.landLocationBeingBought
+      landBeingBought = getlandBeingBought landLocationBeingBought model.board
     in
         case event of
             Start playersLeft -> {model|
@@ -32,7 +35,10 @@ onStateChange model event =
             TileClicked location -> {model|
                 playerTurnModel = updateForTileClicked location playerTurnModel
             } ! []
-            BuyClicked -> model ! []
+            BuyClicked -> if hasMoneyToBuy currentPlayer landBeingBought then 
+                buyLand currentPlayer landLocationBeingBought model ! []
+                else
+                showCantBuyMessageForLackOfMoney currentPlayer model ! []
             DontBuyClicked -> {model|
                 playerTurnModel = updateDontBuyClicked playerTurnModel
             } ! []
@@ -49,21 +55,32 @@ render model =
         playerTurnModel = model.playerTurnModel
         playersLeft = playerTurnModel.playersLeft
         landLocationBeingBought = playerTurnModel.landLocationBeingBought
-        landBeingBought = Maybe.withDefault emptyLandTile (Matrix.get landLocationBeingBought model.board)
+        landBeingBought = getlandBeingBought landLocationBeingBought model.board
         isBuyingLand = playerTurnModel.isBuyingLand
         currentTaxPerTile = getFromDictOrCry distanceTaxKey model.values
+        price = getPriceFor landBeingBought.landType values
+        tax = getTaxValueFor currentPlayer model.board landLocationBeingBought currentTaxPerTile 
         currentPlayer = List.head playersLeft |> unpackOrCry "No Players on list rendering PlayerTurnScreen"
     in
     div [] [
         h1 [] [text <| currentPlayer.name ++ " turn "]
         ,board model.board tileClicked
         ,valueTable model.values
-        ,renderBuyConfirmationDialogIfBuying 
-            isBuyingLand 
-            (getPriceFor landBeingBought.landType values)
-            (getTaxValueFor currentPlayer model.board landLocationBeingBought currentTaxPerTile )
+        ,renderBuyConfirmationDialogIfBuying isBuyingLand price tax
         ,button [onClick endTurn] [text "End turn"]
     ]
+
+getlandBeingBought : Location -> Matrix LandTile -> LandTile
+getlandBeingBought landLocationBeingBought board = Maybe.withDefault emptyLandTile (Matrix.get landLocationBeingBought board)
+
+hasMoneyToBuy : Player -> LandTile -> Bool
+hasMoneyToBuy player land = True
+
+buyLand : Player -> Location -> Model -> Model
+buyLand buyer landLocation model = model
+
+showCantBuyMessageForLackOfMoney : Player -> Model -> Model
+showCantBuyMessageForLackOfMoney buyer model = model
 
 manhatanDistanceBetween : Location -> Location -> Int
 manhatanDistanceBetween loc1 loc2 = (abs ((row loc1) - (row loc2))) + (abs ((Matrix.col loc1) - (Matrix.col loc2)))
@@ -98,7 +115,7 @@ startWithPlayers : List Player -> PlayerTurnModel
 startWithPlayers players = PlayerTurnModel players False (-1, -1)
 
 renderBuyConfirmationDialogIfBuying : Bool -> Int -> Int -> Html Msg
-renderBuyConfirmationDialogIfBuying isBuying price tax= 
+renderBuyConfirmationDialogIfBuying isBuying price tax = 
     let
         total = price + tax
         priceStr = toString price
