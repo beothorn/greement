@@ -4,7 +4,6 @@ Goal of the game
 Be the richest player when the turn count is up. The total wealth of the player is the sum of the value of all his 
 properties, plus his money minus his debts.
 What you’ll need
-- An alarm clock
 - One Pen and paper for each player and one for the values table
 - 60 brown squares. The lands
 - 60 green squares. The crops
@@ -147,4 +146,4 @@ brown square - Pay 10c to avoid this - 2 cards
 - Steal any 5 territories (including lands with no owner)
 - Decide next two votes
 
-The game proceeds until the turn count reaches a given number, then the player with the biggest wealth, or the smallest debt, wins!
+The game proceeds until the turn count reaches a given number (20 for example, decided before game begun), then the player with the biggest wealth, or the smallest debt, wins!
