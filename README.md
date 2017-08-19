@@ -1,9 +1,13 @@
-#Greement
+# Greement
 
-Goal of the game
+## Goal of the game
 Be the richest player when the turn count is up. The total wealth of the player is the sum of the value of all his 
 properties, plus his money minus his debts.
+
+
 What you’ll need
+
+
 - One Pen and paper for each player and one for the values table
 - 60 brown squares. The lands
 - 60 green squares. The crops
@@ -11,12 +15,17 @@ What you’ll need
 - 5 blue squares. Lakes
 - 5 gray squares. Mountains
 - Something to mark the ownership of a square, ie: beans
-Starting the game
+
+
+## Starting the game
+
+
 Put all squares, except the green ones, on the table facing down on a 10x10 grid.   
 Each player must choose a square to be his starting square. The square must not be connected to any other 
 player starting square.  
 If the player chooses a mountain, a lake or a gold mine he must choose another square.  
 The tile is converted to a crop right after the player chooses it.  
+
 After all players have chosen their starting squares turn all squares up. The player will have to buy 
 the chosen square, so if a player chose a gold mine or land, he will have to pay the starting price.   
 
@@ -48,7 +57,7 @@ No value can go below one.
 |--------------|--------------|---------------|-------------|--------------------|-------------------|-----------------------|----------------------------|-------------------|----------------|-----------------|---------------|
 |2             |2             |4              |6            |6                   |1                  |1                      |2                           |2                  |8               |8                |15             |
 
-##A players turn
+## A players turn
 The first thing is to collect the profit. This must be done before any 
 other action. The subsequent
 actions can be performed in any order . At the end of the players turn, his debt will be multiplied by 
@@ -81,7 +90,7 @@ limited by the deck size.  the action card returns to the deck and it is reshuff
 At the end of the player turn after paying his debts, any debt left with the bank is multiplied by the loan 
 multiplier and the turn goes to the next player to the right, and so on until it’s the first player turn again.
 
-##Events
+## Events
 
 Every time that is the first player turn (except the first time), three event cards are drawn from the 
 events deck, facing down. The first card is then turned up, 
@@ -98,7 +107,7 @@ voting the event is triggered immediately.
 pay to avoid the event. Each event have different payment rules.
 
 The events:
-###Vote to avoid:
+### Vote to avoid:
 - Increase lake multiplier, Decrease mountain multiplier - 4 cards
 - Increase mountain multiplier, Decrease lake multiplier  - 2 cards
 - Increase lake multiplier and mountain, Decrease gold mine profit by 2 - 4 cards
@@ -125,7 +134,7 @@ gold mine for this to be triggered - 2 cards
 - Decrease distance tax, Decrease lake and mountain multiplier - 10  cards
 - Decrease Action card price by 2 - 5 cards
 
-###Pay to avoid:
+### Pay to avoid:
 - Increase loan multiplier - Pay 10c to avoid this. - 3 cards
 - Cattle disease, each player must pay 2c for each of his own squares with cattle. All unpaid squares are 
 converted back to crops but are still owned by the player. - Pay 20c to avoid this. - 3 cards
@@ -137,7 +146,7 @@ this - 3 cards
 owner will receive 1c per square taken, turning back to a 
 brown square - Pay 10c to avoid this - 2 cards
 
-###Action cards
+### Action cards
 - Steal 3 gold mines from any player
 - Steal all regular land from any player
 - Steal all territories connected (including diagonally connected) to a chosen lake (including lands with no owner)
