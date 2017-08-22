@@ -110,25 +110,26 @@ The events:
 - Increase lake multiplier, Decrease mountain multiplier - 1 cards
 - Increase mountain multiplier, Decrease lake multiplier  - 1 cards
 - Increase lake multiplier and mountain, Decrease gold mine profit by 2 - 1 cards
-- Increase land price, Decrease gold mine price - 1 card
+- Increase land price, Decrease gold mine price - 2 card
 - Decrease land price, Increase gold mine price - 1 cards
 - Increase cattle price, Increase cattle profit - 1 cards
 - Decrease cattle price, Decrease cattle profit - 1 cards
 - Increase seed price, Increase crop profit - 1 cards
 - Decrease seed price, Decrease crop profit - 1 cards
 - Increase crop profit, Decrease gold mine profit- 1 card
-- Decrease crop profit, Increase gold mine profit - 1 cards
+- Decrease crop profit, Increase gold mine profit - 2 cards
 - Increase cattle profit, Decrease gold mine profit- 1 card
-- Decrease cattle profit, Increase gold mine profit - 1 cards
+- Decrease cattle profit, Increase gold mine profit - 2 cards
 - Increase crop profit, Decrease cattle profit- 1 card
 - Decrease crop profit, Increase cattle profit - 1 cards
 - Decrease distance tax by two, Decrease crop profit - 4 cards
-- Decrease distance tax by two, Increase gold mine profit 2c - 4 cards
+- Decrease distance tax by two, Increase gold mine profit 2c - 5 cards
 - All gold mines are lost (back to no owner) - 2 cards
 - All crops are lost (become unseeded land), gold mine profit increases 3c - 5 cards
 - All cattle convert to crops , gold mine profit increases 3c - 3 cards
 - All gold mines are lost, all lands are converted to cattle - 2 cards
 - Decrease Gold profit - 2 cards
+- Increase Gold profit - 5 cards
 - Decrease distance tax, Decrease lake and mountain multiplier - 5  cards
 - Decrease Action card price by 2 - 5 cards
 
@@ -139,6 +140,8 @@ converted back to crops but are still owned by the player. - Pay 20c to avoid th
 will receive 2c per square taken. - Pay 15c to avoid this - 3 cards
 - Government appropriation Mountain - All lands connected to a lake will be taken from the owner, the 
 owner will receive 1c per square taken - Pay 10c to avoid this - 2 cards
+- Government appropriation Gold Mines - All Gold Mines will be taken from the owner, the 
+owner will receive 1c per Gold Mine taken - Pay 50c to avoid this - 2 cards
 
 ### Action cards
 - Steal any 2 territories (including lands with no owner) - 1 card
