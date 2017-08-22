@@ -2,7 +2,7 @@
 
 ## Goal of the game
 
-Be the richest player when the turn count is up. The total wealth of the player is the sum of the value of all his 
+Be the richest player when the turn count is up (decided before the game starts) . The total wealth of the player is the sum of the value of all his 
 properties, plus his money.
 
 
@@ -33,8 +33,16 @@ The table of values must be visible to all players, and will contain:
 - The gold mine price
 - The gold mine profit 
 - The distance tax - that is the tax when you buy any land. The tax is cumulative, so a land that 
-is 2 squares of distance (manhattan distance) from your land costs the normal price plus 2x tax. ie: 
-if the tax is 4c it will cost you 8c . The tax is also applied on player to player (p2p) payments. If a player has no lands he doesn't need to pay p2p taxes.  
+is 2 squares of distance (manhattan distance) from your land costs the normal price plus distance minus one times tax. ie: 
+if the tax is 1c and X is your land:
+
+|3|2|3|  
+|2|0|2|  
+|0|X|0|  
+|2|0|2|  
+|3|2|3|  
+
+The tax is also applied on player to player (p2p) payments. If a player has no lands he doesn't need to pay p2p taxes.  
 - The lake multiplier - All lands connected to a lake (vertically or horizontally, diagnals don't count) 
 will have its value and profit multiplied by this factor - multipliers are cumulative, 
 if a land is connected to two lakes and the multiplier is 2x, the land will have a 4x multiplier
@@ -49,9 +57,9 @@ Also, must be visible to all players:
 
 No value can go below one.
 
-|Land price ($)|Seed price ($)|Crop profit ($)|Gold mine ($)|Gold mine profit ($)|Lake multiplier (x)|Mountain multiplier (x)|Distance tax(per square) ($)|Loan multiplier (x)|Cattle price ($)|Cattle profit ($)|Action card ($)|
-|--------------|--------------|---------------|-------------|--------------------|-------------------|-----------------------|----------------------------|-------------------|----------------|-----------------|---------------|
-|2             |2             |4              |6            |6                   |1                  |1                      |2                           |2                  |8               |8                |15             |
+|Land price ($)|Seed price ($)|Crop profit ($)|Gold mine ($)|Gold mine profit ($)|Lake multiplier (x)|Mountain multiplier (x)|Distance tax(per square) ($)|Cattle price ($)|Cattle profit ($)|Action card ($)|
+|--------------|--------------|---------------|-------------|--------------------|-------------------|-------------------------|----------------------------|----------------|-----------------|---------------|
+|2             |2             |4              |6            |6                   |1                  |1                      |6                           |8               |8                |15             |
 
 ## A players turn
 
@@ -85,8 +93,8 @@ limited by the deck size.  the action card returns to the deck and it is reshuff
 Every time is the first player turn (except the first time), three event cards are drawn from the 
 events deck, facing down. The first card is then turned up, 
 read and after all players took action the event is triggered or not. Then the next event card is turned 
-up and so on until all events are done. 
-The events are removed from the deck.    
+up and so on until all events are done.  
+The event cards return to the deck and it is reshufled. The turn count is bumped. If the turn count reached the limit, the game ends.
 
 There are two types of event, the “vote to avoid” and the “pay to avoid”.
 
@@ -99,51 +107,44 @@ voting the event is triggered immediately.
 The events:
 
 ### Vote to avoid:
-- Increase lake multiplier, Decrease mountain multiplier - 4 cards
-- Increase mountain multiplier, Decrease lake multiplier  - 2 cards
-- Increase lake multiplier and mountain, Decrease gold mine profit by 2 - 4 cards
+- Increase lake multiplier, Decrease mountain multiplier - 1 cards
+- Increase mountain multiplier, Decrease lake multiplier  - 1 cards
+- Increase lake multiplier and mountain, Decrease gold mine profit by 2 - 1 cards
 - Increase land price, Decrease gold mine price - 1 card
-- Decrease land price, Increase gold mine price - 3 cards
-- Increase land profit, Decrease gold mine profit- 1 card
-- Decrease land profit, Increase gold mine profit - 6 cards
-- Increase seed price, Increase crop profit - 3 cards
-- Decrease distance tax by two, Decrease crop ald gold mine profit - 2 cards
-- Increase cattle price, Increase cattle profit - 2 cards
-- Decrease cattle price, Decrease cattle profit - 2 cards triggered
-- Decrease loan multiplier, Decrease cattle,crop and gold mine profit - 2 cards
-- Increase loan multiplier, Increase lake and mountain multipliers - 1 cards
-- Decrease loan multiplier, Decrease lake and mountain multipliers - 1 cards
-- All gold mines are lost, all debts are paid, there must be at least one player with one gold mine for 
-this to be triggered - 5 cards
-- All crops are lost, gold mine profit increases 3c , there must be at least one player with one crop for 
-this to be triggered - 5 cards
-- All cattle convert to crops , gold mine profit increases 3c , there must be at least one player with one 
-cattle square for this to be triggered - 3 cards
-- All gold mines are lost, all lands are converted to cattle, there must be at least one player with one 
-gold mine for this to be triggered - 2 cards
-- Decrease Gold profit - 5 cards
-- Decrease distance tax, Decrease lake and mountain multiplier - 10  cards
+- Decrease land price, Increase gold mine price - 1 cards
+- Increase cattle price, Increase cattle profit - 1 cards
+- Decrease cattle price, Decrease cattle profit - 1 cards
+- Increase seed price, Increase crop profit - 1 cards
+- Decrease seed price, Decrease crop profit - 1 cards
+- Increase crop profit, Decrease gold mine profit- 1 card
+- Decrease crop profit, Increase gold mine profit - 1 cards
+- Increase cattle profit, Decrease gold mine profit- 1 card
+- Decrease cattle profit, Increase gold mine profit - 1 cards
+- Increase crop profit, Decrease cattle profit- 1 card
+- Decrease crop profit, Increase cattle profit - 1 cards
+- Decrease distance tax by two, Decrease crop profit - 4 cards
+- Decrease distance tax by two, Increase gold mine profit 2c - 4 cards
+- All gold mines are lost (back to no owner) - 2 cards
+- All crops are lost (become unseeded land), gold mine profit increases 3c - 5 cards
+- All cattle convert to crops , gold mine profit increases 3c - 3 cards
+- All gold mines are lost, all lands are converted to cattle - 2 cards
+- Decrease Gold profit - 2 cards
+- Decrease distance tax, Decrease lake and mountain multiplier - 5  cards
 - Decrease Action card price by 2 - 5 cards
 
 ### Pay to avoid:
-- Increase loan multiplier - Pay 10c to avoid this. - 3 cards
 - Cattle disease, each player must pay 2c for each of his own squares with cattle. All unpaid squares are 
 converted back to crops but are still owned by the player. - Pay 20c to avoid this. - 3 cards
 - Government appropriation Lake - All lands connected to a lake will be taken from the owner, the owner 
-will receive 2c per square taken, turning back to a 
-brown square if it's a crop. Gold mines als are taken but stay normal. - Pay 15c to avoid 
-this - 3 cards
+will receive 2c per square taken. - Pay 15c to avoid this - 3 cards
 - Government appropriation Mountain - All lands connected to a lake will be taken from the owner, the 
-owner will receive 1c per square taken, turning back to a 
-brown square - Pay 10c to avoid this - 2 cards
+owner will receive 1c per square taken - Pay 10c to avoid this - 2 cards
 
 ### Action cards
-- Steal 3 gold mines from any player
-- Steal all regular land from any player
-- Steal all territories connected (including diagonally connected) to a chosen lake (including lands with no owner)
-- Steal all territories connected (including diagonally connected) to a chosen mountain (including lands with no owner)
-- Make a 5c loan on any players name (keep the money)
-- Steal any 5 territories (including lands with no owner)
-- Decide next two votes
+- Steal any 2 territories (including lands with no owner) - 1 card
+- Decide next vote - 3 cards
+- Increase any value by 2 - 1 card
+- Decrease any value by 2 - 1 card
+- Receive from any player two times the value of the current distance tax
 
 The game proceeds until the turn count reaches a given number (20 for example, decided before game begun), then the player with the biggest wealth, or the smallest debt, wins!
